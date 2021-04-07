@@ -1,7 +1,8 @@
 import {Topbar} from './Topbar/Topbar';
 import {SignRegister} from './SignRegister/SignRegister';
 import {Main} from './Main/Main';
-import {Favorite} from './Favorite/Favorite'
+import {Favorite} from './Favorite/Favorite';
+import {Recipe} from './Recipe/Recipe';
 
 
 export const TopbarComponent=()=>{
@@ -18,5 +19,10 @@ export const MainComponent=()=>{
 export const FavoriteComponent=()=>{
     return(
         <Favorite/>   
+    )
+}
+export const RecipeComponent=()=>{
+    return(
+        <Recipe/>
     )
 }
