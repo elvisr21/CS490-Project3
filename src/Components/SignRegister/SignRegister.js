@@ -1,8 +1,12 @@
-import './signRegister.css'
-
+import './signRegister.css';
+import {Sign} from './Sign/Sign';
+import {Register} from './Register/Register';
 export const SignRegister=()=>{
-    return(<h1>SignRegister</h1>
-    
+    return(
+        <>
+        <Sign/>
+        <Register/>
+        </>
     
     )
 }
