@@ -1,5 +1,5 @@
 import {Topbar} from './Topbar/Topbar';
-import {SignRegister} from './SignRegister/SignRegister';
+import {UseForm} from './SignRegister/UseForm';
 import {Main} from './Main/Main';
 import {Favorite} from './Favorite/Favorite';
 import {Recipe} from './Recipe/Recipe';
@@ -9,7 +9,7 @@ export const TopbarComponent=()=>{
     return <Topbar/>
 }
 export const SignRegisterComponent=()=>{
-    return <SignRegister/>
+    return <UseForm/>
 }
 export const MainComponent=()=>{
     return(
