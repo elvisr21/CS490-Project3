@@ -28,7 +28,7 @@ class Database:
             recipe_id=self.db.Column(self.db.Integer,self.db.ForeignKey('recipe.id'),nullable=False)
             comment=self.db.Column(self.db.String())
             def __repr__(self):
-                return '<Comment '+'id='+str(self.id)+' creator='+str(self.creator_id)+ ' recipe=' + str(self.recipe_id)+ ' >'
+                return '<Comment '+'id='+str(self.id)+' creator='+str(self.creator_id)+ ' recipe_id=' + str(self.recipe_id)+ ' >'
         self.Comment_Table=Comments
         self.db.create_all()
     def insertUser(self,username:str,password:str,name:str):
