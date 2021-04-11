@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function UseForm(callback, validate){
+export function useForm(callback, validate){
   const [account, setAccount] = useState({
     name: '',
     username: '',
@@ -38,4 +38,4 @@ export function UseForm(callback, validate){
   return { handleChange, handleSubmit, account, errors };
 };
 
-export default UseForm;
+export default useForm;

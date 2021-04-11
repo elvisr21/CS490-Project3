@@ -1,10 +1,10 @@
 import React from 'react';
 import validate from './FormValidation';
-import UseForm from './UseForm';
+import useForm from './useForm';
 import './Form.css';
 
-const FormSignup = ({ submitForm }) => {
-  const { handleChange, handleSubmit, account, errors } = UseForm(
+const Register = ({ submitForm }) => {
+  const { handleChange, handleSubmit, account, errors } = useForm(
     submitForm,
     validate
   );
@@ -47,7 +47,7 @@ const FormSignup = ({ submitForm }) => {
             type='password'
             name='password2'
             placeholder='Confirm your password'
-            value={account.confPass}
+            value={account.password2}
             onChange={handleChange}
           />
           {errors.password2 && <p>{errors.password2}</p>}
@@ -63,4 +63,4 @@ const FormSignup = ({ submitForm }) => {
   );
 };
 
-export default FormSignup;
+export default Register;
