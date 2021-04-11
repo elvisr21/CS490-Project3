@@ -20,7 +20,7 @@ class Database:
             description=self.db.Column(self.db.String(),nullable=False)
             ingredients=self.db.Column(self.db.String(),nullable=False)
             def __repr__(self):
-                return '<Recipe id='+str(self.id)+ ' name=' + self.name+ ' id='+str(self.id)+ ' description='+self.description+' ingredients='+self.ingredients+' >'
+                return '<Recipe id='+str(self.id)+ ' name=' + self.name+' >'
         self.Recipe_Table=Recipe
         class Comments(self.db.Model):
             id=self.db.Column(self.db.Integer,primary_key=True)
@@ -28,7 +28,7 @@ class Database:
             recipe_id=self.db.Column(self.db.Integer,self.db.ForeignKey('recipe.id'),nullable=False)
             comment=self.db.Column(self.db.String())
             def __repr__(self):
-                return '<Comment '+'id='+str(self.id)+' creator='+str(self.creator_id)+ ' recipe=' + str(self.recipe_id)+ ' comment='+self.comment+' >'
+                return '<Comment '+'id='+str(self.id)+' creator='+str(self.creator_id)+ ' recipe=' + str(self.recipe_id)+ ' >'
         self.Comment_Table=Comments
         self.db.create_all()
     def insertUser(self,username:str,password:str,name:str):
