@@ -1,9 +1,11 @@
 import './App.css';
-import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import React, { useState } from 'react';
-import {TopbarComponent,SignRegisterComponent,MainComponent,FavoriteComponent, RecipeComponent} from './Components'
+import {TopbarComponent, SignRegisterComponent, MainComponent, FavoriteComponent, RecipeComponent} from './Components'
+
 function App() {
-  const [Signed,setSigned] = useState(true)
+  const [Signed, setSigned] = useState(true);
+  
   return (
     <Router>
         {Signed && <TopbarComponent/>}
