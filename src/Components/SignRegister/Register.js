@@ -21,8 +21,8 @@ const Register = ({ submitForm }) => {
           <input
             className='form-input'
             type='text'
-            name='name'
-            placeholder='Enter your name'
+            name='username'
+            placeholder='Enter your username'
             value={account.username}
             onChange={handleChange}
           />
