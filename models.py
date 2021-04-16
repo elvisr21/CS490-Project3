@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import desc
+from sqlalchemy import desc, exc
+
 
 class Database:
     def __init__(self,app):
@@ -17,7 +18,8 @@ class Database:
             id = self.db.Column(self.db.Integer, primary_key=True)
             name=self.db.Column(self.db.String(),nullable=False)
             creator_id=self.db.Column(self.db.Integer,self.db.ForeignKey('user.id'),nullable=False)
-            description=self.db.Column(self.db.String(),nullable=False)
+            cuisine=self.db.Column(self.db.String(),nullable=False)
+            description=self.db.Column(self.db.String(),nullable=True)
             ingredients=self.db.Column(self.db.String(),nullable=False)
             def __repr__(self):
                 return '<Recipe id='+str(self.id)+ ' name=' + self.name+' >'
@@ -34,9 +36,24 @@ class Database:
     def insertUser(self,username:str,password:str,name:str):
         entry=self.User_Table(username=username,password=password,name=name)
         self.db.session.add(entry)
-        self.db.session.commit()
-        print('User ',entry ," was added to database")
+        try:
+            self.db.session.commit()
+        except exc.SQLAlchemyError:
+            return(
+                {
+                    "code":0,
+                    "message":"User already exist"
+                }
+            )
         
+        print('User ',entry ," was added to database")
+        user=self.User_Table.query.filter_by(username=username).first()
+        return(
+            {
+                "code":1,
+                "User_Id":user.id
+            }
+        )
     def insertRecipe(self, name:str, creator_id:int,description:str,ingredients:str):
         entry=self.Recipe_Table(name=name,creator_id=creator_id,description=description,ingredients=ingredients)
         self.db.session.add(entry)

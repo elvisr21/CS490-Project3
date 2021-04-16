@@ -1,5 +1,5 @@
 import os
-from flask import Flask, send_from_directory, json
+from flask import Flask, send_from_directory, json, request
 from dotenv import load_dotenv, find_dotenv
 from flask_socketio import SocketIO
 from flask_cors import CORS
@@ -8,6 +8,7 @@ from sqlalchemy import desc
 from flask import Flask, send_from_directory
 from models import Database
 from dotenv import load_dotenv, find_dotenv
+import hashlib
 
 app = Flask(__name__, static_folder='./build/static')
 load_dotenv(find_dotenv())
@@ -17,9 +18,17 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICSTIONS']= False
 
+salt='cs490project3'
+
 db=Database(app)
-
-
+@app.route('/register',methods=['POST'])
+def register():
+    data = json.loads(request.data.decode())
+    registerUser(username=data['username'],password=data['password'],name=data['name'])
+def registerUser(username,password,name):
+    hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
+    return db.insertUser(username=username,password=hashedpassword,name=name)
+print(registerUser("test3",'test','test'))
 #db.insertUser(username="test3",password="password",name="test1")
 #db.deleteUser(user_id=1)
 #db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
