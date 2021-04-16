@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 export function useForm(callback, validate){
   const [account, setAccount] = useState({
-    name: '',
     username: '',
     password: '',
     password2: ''
