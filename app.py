@@ -28,7 +28,7 @@ def register():
 def registerUser(username,password,name):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.insertUser(username=username,password=hashedpassword,name=name)
-print(registerUser("test3",'test','test'))
+    
 #db.insertUser(username="test3",password="password",name="test1")
 #db.deleteUser(user_id=1)
 #db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
