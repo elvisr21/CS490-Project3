@@ -21,8 +21,9 @@ class Database:
             cuisine=self.db.Column(self.db.String(),nullable=False)
             description=self.db.Column(self.db.String(),nullable=True)
             ingredients=self.db.Column(self.db.String(),nullable=False)
+            img=self.db.Column(self.db.LargeBinary,nullable=True)
             def __repr__(self):
-                return '<Recipe id='+str(self.id)+ ' name=' + self.name+' >'
+                return '<Recipe id='+str(self.id)+ ' name=' + self.name+ ' cuisine='+self.cuisine+' >'
         self.Recipe_Table=Recipe
         class Comments(self.db.Model):
             id=self.db.Column(self.db.Integer,primary_key=True)
@@ -36,9 +37,9 @@ class Database:
         
     #inserts user and returns a user id
     def insertUser(self,username:str,password:str,name:str):
-        entry=self.User_Table(username=username,password=password,name=name)
-        self.db.session.add(entry)
         try:
+            entry=self.User_Table(username=username,password=password,name=name)
+            self.db.session.add(entry)
             self.db.session.commit()
         except exc.SQLAlchemyError:
             return(
@@ -47,7 +48,6 @@ class Database:
                     "message":"User already exist"
                 }
             )
-        
         print('User ',entry ," was added to database")
         user=self.User_Table.query.filter_by(username=username).first()
         return(
@@ -73,11 +73,32 @@ class Database:
                 "id":exist.id
             }
         )
-    def insertRecipe(self, name:str, creator_id:int,description:str,ingredients:str):
-        entry=self.Recipe_Table(name=name,creator_id=creator_id,description=description,ingredients=ingredients)
+    def insertRecipe(self, name:str, creator_id:int,description:str,ingredients:str,cuisine:str,img):
+        print(type(img))
+        entry=self.Recipe_Table(name=name,creator_id=creator_id,description=description,ingredients=ingredients,cuisine=cuisine,img=img)
         self.db.session.add(entry)
         self.db.session.commit()
         print('Recipe ',entry ," was added to database")
+        return {}
+        
+        
+        
+        
+        
+        
+    def getRecipesbyCuisine(self,cuisine:str,recipe_limit:int):
+        print()
+        que=self.Recipe_Table.query.filter(cuisine==cuisine,self.Recipe_Table.id>recipe_limit).limit(20).all()
+        return {
+            i: {
+                "id": que[i].id,
+                "name": que[i].name,
+                "creator_id":que[i].creator_id,
+                "creator_name":self.User_Table.query.filter_by(id=que[i].creator_id).first().name,
+                
+            }
+            for i in range(len(que))
+        }
     def insertComment(self,creator_id,recipe_id,comment):
         ##
         entry=self.Comment_Table(creator_id=creator_id,recipe_id=recipe_id,comment=comment)

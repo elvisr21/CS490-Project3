@@ -36,16 +36,37 @@ def login():
 def loginUser(username,password):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.User_Exist(username=username,password=hashedpassword)
-#id 24
-#print(registerUser("taco2","taco","taco"))
-print(loginUser("taco","taco"))
+#id 1
+#print(registerUser("taco","taco","taco")) 
+#print(loginUser("taco4","taco"))
+@app.route("/AddRecipe",methods=["POST"])
+def addRecipe():
+    data=json.loads(request.data.decode())
+    print(data)
+    return db.insertRecipe(name=data['name'],creator_id=data['id'],description=data['description'],ingredients=json.dumps(data['Ingredients']),cuisine=data['cuisine'],img=data['image'].encode())
 
+@app.route('/getRecipebyId',methods=["GET"])
+def getRecipeByID():
+    data=request
+    print(request.GET.get('id'))
+    print(data)
+    return {"code":0}
+
+@app.route('/GetRecipesbyCuisine',methods=["GET"])
+def getRecipes():
+    data = json.loads(request.data.decode())
+    return getRecipesbyCuisine(data['cuisine'],data['recipe_limit'])
+def getRecipesbyCuisine(cuisine:str,recipe_limit:int):
+    return db.getRecipesbyCuisine(cuisine,recipe_limit)
+
+#print(getRecipesbyCuisine("chinese",0))
+#db.getRecipes()
 #db.insertUser(username="test3",password="password",name="test1")
 #db.deleteUser(user_id=1)
 #db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
 #db.getUsers()
 
-#db.insertRecipe(name='test2',creator_id=3,description='test',ingredients='test') 
+#db.insertRecipe(name='test2',creator_id=24,description='test',ingredients='test',cuisine="chinese") 
 #db.deleteRecipe(recipe_id=1)
 #db.changeRecipe(recipe_id=2,newName="testt",newDescription='testt',newIngredients='testt')
 #db.getRecipes()
