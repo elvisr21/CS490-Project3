@@ -33,6 +33,8 @@ class Database:
                 return '<Comment '+'id='+str(self.id)+' creator='+str(self.creator_id)+ ' recipe_id=' + str(self.recipe_id)+ ' >'
         self.Comment_Table=Comments
         self.db.create_all()
+        
+    #inserts user and returns a user id
     def insertUser(self,username:str,password:str,name:str):
         entry=self.User_Table(username=username,password=password,name=name)
         self.db.session.add(entry)
@@ -52,6 +54,23 @@ class Database:
             {
                 "code":1,
                 "User_Id":user.id
+            }
+        )
+    def User_Exist(self,username:str,password:str):
+        exist=self.User_Table.query.filter_by(username=username,password=password).first()
+        if exist==None:
+            return(
+                {
+                    "code":0,
+                    "message": "Username or Password is wrong"
+                }
+            )
+        
+        print(exist)
+        return(
+            {
+                "code":1,
+                "id":exist.id
             }
         )
     def insertRecipe(self, name:str, creator_id:int,description:str,ingredients:str):

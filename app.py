@@ -24,11 +24,22 @@ db=Database(app)
 @app.route('/register',methods=['POST'])
 def register():
     data = json.loads(request.data.decode())
-    registerUser(username=data['username'],password=data['password'],name=data['name'])
+    return registerUser(username=data['username'],password=data['password'],name=data['name'])
 def registerUser(username,password,name):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.insertUser(username=username,password=hashedpassword,name=name)
-    
+
+@app.route('/login',methods=["GET"])
+def login():
+    data = json.loads(request.data.decode())
+    return loginUser(username=data['username'],password=data['password'])
+def loginUser(username,password):
+    hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
+    return db.User_Exist(username=username,password=hashedpassword)
+#id 24
+#print(registerUser("taco2","taco","taco"))
+print(loginUser("taco","taco"))
+
 #db.insertUser(username="test3",password="password",name="test1")
 #db.deleteUser(user_id=1)
 #db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
