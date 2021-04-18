@@ -29,7 +29,7 @@ def registerUser(username,password,name):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.insertUser(username=username,password=hashedpassword,name=name)
 
-@app.route('/login',methods=["GET"])
+@app.route('/login',methods=["GET","POST"])
 def login():
     data = json.loads(request.data.decode())
     return loginUser(username=data['username'],password=data['password'])
