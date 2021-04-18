@@ -1,9 +1,9 @@
 import React from 'react';
 import validate from './FormValidation';
 import useForm from './useForm';
-import './Form.css';
+import './LoginForm.css';
 
-const Register = ({ submitForm }) => {
+const Login = ({ submitForm }) => {
   const { handleChange, handleSubmit, account, errors } = useForm(
     submitForm,
     validate
@@ -55,6 +55,9 @@ const Register = ({ submitForm }) => {
         <button className='form-input-btn' type='submit'>
           Sign up
         </button>
+        <span className='form-input-login'>
+          Already have an account? Login <a href='#'>here</a>
+        </span>
       </form>
     </div>
   );
