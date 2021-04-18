@@ -58,6 +58,7 @@ class Database:
                 "User_Id":user.id
             }
         )
+    #checks if user exist
     def User_Exist(self,username:str,password:str):
         exist=self.User_Table.query.filter_by(username=username,password=password).first()
         if exist==None:
@@ -75,12 +76,14 @@ class Database:
                 "id":exist.id
             }
         )
+    #inserts recipe to database
     def insertRecipe(self, name:str, creator_id:int,description:str,ingredients:str,cuisine:str,img,instructions):
         entry=self.Recipe_Table(name=name,creator_id=creator_id,description=description,ingredients=ingredients,cuisine=cuisine,img=img,instructions=instructions)
         self.db.session.add(entry)
         self.db.session.commit()
         print('Recipe ',entry ," was added to database")
         return {"Code":1}
+    #search recipes by id and returns recipe info with comments
     def getRecipesById(self,recipe_id:int):
         entry=self.Recipe_Table.query.join(self.User_Table,self.User_Table.id == self.Recipe_Table.creator_id).add_columns(self.User_Table.name).filter(self.Recipe_Table.id==recipe_id).first()
         comments=self.Comment_Table.query.order_by(asc(self.Comment_Table.creator_id)).join(self.User_Table, self.Comment_Table.creator_id==self.User_Table.id).add_columns(self.User_Table.name,self.User_Table.id).filter(self.Comment_Table.recipe_id==recipe_id).all()
@@ -99,15 +102,19 @@ class Database:
                             "id":comments[i][2]
             } for i in range(len(comments))}
         }
+    #deletes user by id
     def deleteUser(self,user_id):
         self.User_Table.query.filter_by(id=user_id).delete()
         self.db.session.commit()
+    #deletes recipe by id
     def deleteRecipe(self,recipe_id):
         self.Recipe_Table.query.filter_by(id=recipe_id).delete()
         self.db.session.commit()
+    #delete comment by id
     def deleteComment(self,comment_id):
         self.Comment_Table.query.filter_by(id=comment_id).delete()
         self.db.session.commit()
+    #changes user info
     def changeUser(self,user_id,newUsername,newName):
         entry=self.User_Table.query.filter_by(id=user_id).first()
         if entry.username!=newUsername:
@@ -115,6 +122,7 @@ class Database:
         if entry.name!=newName:
             entry.name=newName
         self.db.session.commit()
+    #changes comment info
     def changeComment(self,comment_id,newComment):
         entry=self.Comment_Table.query.filter_by(id=comment_id).first()
         if entry.comment!=newComment:

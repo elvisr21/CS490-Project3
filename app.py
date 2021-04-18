@@ -20,12 +20,20 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICSTIONS']= False
 
-
+#used to salt hashed passwords
 salt='cs490project3'
 
 db=Database(app)
 
-
+'''
+register endpoint
+takes json 
+{
+    'username':'test',
+    'password':'test',
+    'name':'name'
+}
+'''
 @app.route('/register',methods=['POST'])
 def register():
     data = json.loads(request.data.decode())
@@ -36,7 +44,15 @@ def registerUser(username,password,name):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.insertUser(username=username,password=hashedpassword,name=name)
     
-    
+
+'''
+login endpoint 
+takes json
+{
+    'username':'test',
+    'password':'test'
+}
+'''
 @app.route('/login',methods=["GET","POST"])
 def login():
     data = json.loads(request.data.decode())
@@ -47,12 +63,38 @@ def loginUser(username,password):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.User_Exist(username=username,password=hashedpassword)
     
-    
+
+'''
+    endpoint to add new recipes
+    takes json
+    {
+        'name':'test',
+        'creator_id':'test',
+        'description':'test',
+        'Ingredients':[],
+        'cuisine':'test',
+        'img':'test',
+        'instructions':[]
+        
+    }
+'''
 @app.route("/AddRecipe",methods=["POST"])
 def addRecipe():
     data=json.loads(request.data.decode())
     return db.insertRecipe(name=data['name'],creator_id=data['id'],description=data['description'],ingredients=json.dumps(data['Ingredients']),cuisine=data['cuisine'],img=data['image'],instructions=json.dumps(data['Instructions']))
 
+'''
+    endpoint for getting recipies for id for recipe page
+    takes json
+    {
+        
+       params: {
+            id: id
+        }
+
+    }
+    id being recipe id
+'''
 @app.route('/getRecipebyId',methods=["GET"])
 def getRecipeByID():
     Recipe_ID=request.args.get('id')
