@@ -1,4 +1,5 @@
 #logo {
+  color: "white";
   border-top: 2px solid #ff8533;
   border-bottom: 2px solid #ff8533;
   display: inline-block;
@@ -9,8 +10,7 @@
   margin-left: 5px;
 }
 .navig {
-  border-top: 2px solid #e3fb69;
-  border-bottom: 2px solid #e3fb69;
+  padding: 5px;
   display: inline-block;
   justify-content: space-between;
   margin-left: 5px;
@@ -18,22 +18,15 @@
   left: 10px;
 }
 
-.navig option {
+.navig a {
+  color: white;
   border: 2px solid #e3fb69;
-  padding: 6px 8px 6px 16px;
+  padding: 0px 8px 0px 8px;
   text-decoration: none;
   font-size: 25px;
   display: inline;
 }
 
-.navig welcome {
-  border: 2px solid #e3fb69;
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  display: inline;
-}
-
-.navig option:hover {
+.navig a:hover {
   color: #ff8533;
 }
