@@ -70,7 +70,7 @@ console.log ("Login Link: ", loginLink)
         </span>
       </form>
     </div>
-    ) : (//Login Page ======================================================================
+    ) : (
       <div className='form-content-right'>
       <form onSubmit={handleSubmit} className='form' noValidate>
         <h1>
