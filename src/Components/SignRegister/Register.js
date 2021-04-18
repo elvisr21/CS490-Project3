@@ -4,10 +4,9 @@ import validate from './FormValidation';
 import useForm from './useForm';
 import './Form.css';
 
-
 const Register = ({ submitForm }) => {
   const [loginLink, setLoginLink] = useState(false);
-  const { handleChange, handleSubmit, account, login, errors } = useForm(
+  const { handleChange, handleSubmit, handleSubmitLogin, account, login, errors } = useForm(
     submitForm,
     validate
   );
@@ -16,7 +15,7 @@ const Register = ({ submitForm }) => {
 function clicked(){
   setLoginLink(true);
 }
-console.log ("Login Link: ", loginLink)
+//console.log ("Login Link: ", loginLink)
   return (
     <>
     {!loginLink ? (
@@ -72,7 +71,7 @@ console.log ("Login Link: ", loginLink)
     </div>
     ) : (
       <div className='form-content-right'>
-      <form onSubmit={handleSubmit} className='form' noValidate>
+      <form onSubmit={handleSubmitLogin} className='form' noValidate>
         <h1>
           Welcome Back. Login Here!
         </h1>

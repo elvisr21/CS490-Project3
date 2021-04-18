@@ -5,10 +5,11 @@ import FormSuccess from './FormSuccess';
 
 const Form = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+  
   function submitForm() {
     setIsSubmitted(true);
   }
+  
   return (
     <>
       <div className='form-container'>
@@ -17,7 +18,7 @@ const Form = () => {
           <img className='form-img' src='images/register-logo.jpg' alt='register-logo' />
         </div>
         {!isSubmitted ? (
-          <Register submitForm={submitForm} />
+          <Register submitForm={submitForm}/>
         ) : (
           <FormSuccess />
         )}

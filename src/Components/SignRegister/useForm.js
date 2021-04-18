@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export function useForm(callback, validate){
   const [account, setAccount] = useState({
@@ -32,8 +33,25 @@ export function useForm(callback, validate){
   const handleSubmit = e => {
     e.preventDefault();
 
-    setErrors(validate(account, login));
+    setErrors(validate(account));
     setIsSubmitting(true);
+    
+    console.log(account);
+    //axios.post('/register')
+    // useEffect(() => {
+    // // for the player moves
+    // socket.on('move', (data) => {
+      
+    // });
+  };
+  
+  const handleSubmitLogin = e => {
+    e.preventDefault();
+    
+    setErrors(validate(login));
+    setIsSubmitting(true);
+    
+    console.log(login);
   };
 
   useEffect(
@@ -45,7 +63,7 @@ export function useForm(callback, validate){
     [errors]
   );
 
-  return { handleChange, handleSubmit, account, login, errors };
+  return { handleChange, handleSubmit, handleSubmitLogin, account, login, errors };
 };
 
 export default useForm;
