@@ -5,13 +5,16 @@ export const CreateRecipe=(props)=>{
     e.preventDefault();
     console.log(e);
     const ingredients=Array.from(document.getElementById("IngredientItems").children)
+    const instructions=Array.from(document.getElementById("InstructionItems").children)
+
     const data={
         "id":props.id,
         "image":e.target[0].value,
         "name":e.target[1].value,
         "description":e.target[2].value,
         "cuisine":e.target[3].value,
-        "Ingredients": []
+        "Ingredients": [],
+        'Instructions':[]
         
     }
     ingredients.map((ingredient,index)=>{
@@ -23,7 +26,11 @@ export const CreateRecipe=(props)=>{
         }
 
     })
-    console.log(data)
+    instructions.map((ingredient,index)=>{
+        const name=ingredient.children[0].value;
+        data['Instructions'][index]=name
+    })
+    console.log(e)
     axios.post("/AddRecipe", data)
 }
     return(
@@ -62,7 +69,7 @@ const CreateRecipeForm=(props)=>{
             </div>
         )
     }
-    const Ingredients=(props)=>{
+    const Ingredients=()=>{
         const addIngredient=(e)=>{
             e.preventDefault();
             const ingredient=document.getElementById("ingredient_name");
@@ -116,13 +123,46 @@ const CreateRecipeForm=(props)=>{
         </div>
         )
     }
+    const Instructions=()=>{
+        
+        const addInstructions=(e)=>{
+            e.preventDefault();
+            const instruction=document.getElementById("ingredient_name");
+            const container=document.getElementById("InstructionItems");
+            var div=document.createElement("div");
+            div.classList.add("Instruction")
+            var newInstruction=document.createElement("INPUT");
+            
+            newInstruction.classList.add("Ingredient_Name");
+            newInstruction.setAttribute("type", "text");
+            newInstruction.setAttribute("value", instruction.value);
+            newInstruction.readOnly = true;
+            newInstruction.onclick=()=>{
+                newInstruction.readOnly= !newInstruction.readOnly
+            }
+            div.appendChild(newInstruction)
+            container.appendChild(div)
+
+
+        }
+        return(
+        <div className="Instructions">
+            <label>Instructions: </label> <br/>
+            <input type="text" id="instruction" placeholder="test"  /> <br/>
+
+            <button type ="button" onClick={addInstructions}>Add Instruction</button>
+            <div className="InstructionItems" id="InstructionItems" ></div>
+        </div>
+        )
+    }
     return (
         <form className="CreateRecipeForm" onSubmit={props.func}> {props.children}
-            <FormItem type='file' message="Select Recipe Image: " />
-                <FormItem type="input" message="Recipe Name: " value="test"/>
-                <FormItem type='input' message= "Description: " value="test"/>
+            <FormItem type='input' message="Image_URL: "  value="file_Url"/>
+                <FormItem type="input" message="Recipe Name: " value="name"/>
+                <FormItem type='input' message= "Description: " value="description"/>
                 <OptionItem  message= "Cuisine: "/>
                 <Ingredients/>
+                <Instructions/>
                 <FormItem type="submit" value="Submit Recipe"/>
 
         </form>

@@ -36,29 +36,32 @@ def login():
 def loginUser(username,password):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.User_Exist(username=username,password=hashedpassword)
-#id 1
-#print(registerUser("taco","taco","taco")) 
-#print(loginUser("taco4","taco"))
+
 @app.route("/AddRecipe",methods=["POST"])
 def addRecipe():
     data=json.loads(request.data.decode())
-    print(data)
-    return db.insertRecipe(name=data['name'],creator_id=data['id'],description=data['description'],ingredients=json.dumps(data['Ingredients']),cuisine=data['cuisine'],img=data['image'].encode())
+    return db.insertRecipe(name=data['name'],creator_id=data['id'],description=data['description'],ingredients=json.dumps(data['Ingredients']),cuisine=data['cuisine'],img=data['image'],instructions=json.dumps(data['Instructions']))
 
 @app.route('/getRecipebyId',methods=["GET"])
 def getRecipeByID():
-    data=request
-    print(request.GET.get('id'))
-    print(data)
-    return {"code":0}
+    Recipe_ID=request.args.get('id')
+    return db.getRecipesById(Recipe_ID)
+ 
+
+   
 
 @app.route('/GetRecipesbyCuisine',methods=["GET"])
 def getRecipes():
     data = json.loads(request.data.decode())
     return getRecipesbyCuisine(data['cuisine'],data['recipe_limit'])
 def getRecipesbyCuisine(cuisine:str,recipe_limit:int):
-    return db.getRecipesbyCuisine(cuisine,recipe_limit)
+    returnval= db.getRecipesbyCuisine(cuisine,recipe_limit)
+    print(returnval)
+    return returnval
 
+#id 1
+#print(registerUser("taco","taco","taco")) 
+#print(loginUser("taco4","taco"))
 #print(getRecipesbyCuisine("chinese",0))
 #db.getRecipes()
 #db.insertUser(username="test3",password="password",name="test1")
@@ -66,12 +69,12 @@ def getRecipesbyCuisine(cuisine:str,recipe_limit:int):
 #db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
 #db.getUsers()
 
-#db.insertRecipe(name='test2',creator_id=24,description='test',ingredients='test',cuisine="chinese") 
+#db.insertRecipe(name='test2',creator_id=1,description='test',ingredients='test',cuisine="chinese", img='test', instructions="test#") 
 #db.deleteRecipe(recipe_id=1)
 #db.changeRecipe(recipe_id=2,newName="testt",newDescription='testt',newIngredients='testt')
 #db.getRecipes()
  
-#db.insertComment(creator_id=2,comment="comment",recipe_id=2)  
+#db.insertComment(creator_id=1,comment="comment",recipe_id=6)         
 #db.deleteComment(comment_id=2)
 #db.changeComment(comment_id=3,newComment='commentt')
 #db.getComments()

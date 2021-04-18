@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import desc, exc
+from sqlalchemy import desc, exc , asc
+from flask import json
 
 
 class Database:
@@ -20,8 +21,9 @@ class Database:
             creator_id=self.db.Column(self.db.Integer,self.db.ForeignKey('user.id'),nullable=False)
             cuisine=self.db.Column(self.db.String(),nullable=False)
             description=self.db.Column(self.db.String(),nullable=True)
+            instructions=self.db.Column(self.db.String(),nullable=True)
             ingredients=self.db.Column(self.db.String(),nullable=False)
-            img=self.db.Column(self.db.LargeBinary,nullable=True)
+            img=self.db.Column(self.db.String(),nullable=True)
             def __repr__(self):
                 return '<Recipe id='+str(self.id)+ ' name=' + self.name+ ' cuisine='+self.cuisine+' >'
         self.Recipe_Table=Recipe
@@ -73,14 +75,30 @@ class Database:
                 "id":exist.id
             }
         )
-    def insertRecipe(self, name:str, creator_id:int,description:str,ingredients:str,cuisine:str,img):
-        print(type(img))
-        entry=self.Recipe_Table(name=name,creator_id=creator_id,description=description,ingredients=ingredients,cuisine=cuisine,img=img)
+    def insertRecipe(self, name:str, creator_id:int,description:str,ingredients:str,cuisine:str,img,instructions):
+        entry=self.Recipe_Table(name=name,creator_id=creator_id,description=description,ingredients=ingredients,cuisine=cuisine,img=img,instructions=instructions)
         self.db.session.add(entry)
         self.db.session.commit()
         print('Recipe ',entry ," was added to database")
-        return {}
-        
+        return {"Code":1}
+    def getRecipesById(self,recipe_id:int):
+        entry=self.Recipe_Table.query.join(self.User_Table,self.User_Table.id == self.Recipe_Table.creator_id).add_columns(self.User_Table.name).filter(self.Recipe_Table.id==recipe_id).first()
+        comments=self.Comment_Table.query.order_by(asc(self.Comment_Table.creator_id)).join(self.User_Table, self.Comment_Table.creator_id==self.User_Table.id).add_columns(self.User_Table.name,self.User_Table.id).filter(self.Comment_Table.recipe_id==recipe_id).all()
+        return {
+            "name":entry[0].name,
+            "creator_id":entry[0].creator_id,
+            "creator_name":entry[1],
+            "cuisine":entry[0].cuisine,
+            "description":entry[0].description,
+            "ingredients":json.loads(entry[0].ingredients),
+            "instructions":json.loads(entry[0].instructions),
+            "img":entry[0].img,
+            "comments": { i:{
+                            "name":comments[i][1],
+                            "comment":comments[i][0].comment,
+                            "id":comments[i][2]
+            } for i in range(len(comments))}
+        }
         
         
         
