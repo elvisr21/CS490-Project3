@@ -7,6 +7,12 @@ export function useForm(callback, validate){
     password2: ''
   });
   
+  //Login
+  const [login, setLogin] = useState({
+    username: '',
+    password: '',
+  });
+  
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -16,12 +22,17 @@ export function useForm(callback, validate){
       ...account,
       [name]: value
     });
+    //login
+    setLogin({
+      ...login,
+      [name]: value
+    });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    setErrors(validate(account));
+    setErrors(validate(account, login));
     setIsSubmitting(true);
   };
 
@@ -34,7 +45,7 @@ export function useForm(callback, validate){
     [errors]
   );
 
-  return { handleChange, handleSubmit, account, errors };
+  return { handleChange, handleSubmit, account, login, errors };
 };
 
 export default useForm;
