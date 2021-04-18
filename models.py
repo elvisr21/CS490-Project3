@@ -99,39 +99,6 @@ class Database:
                             "id":comments[i][2]
             } for i in range(len(comments))}
         }
-        
-        
-        
-        
-        
-    def getRecipesbyCuisine(self,cuisine:str,recipe_limit:int):
-        print()
-        que=self.Recipe_Table.query.filter(cuisine==cuisine,self.Recipe_Table.id>recipe_limit).limit(20).all()
-        return {
-            i: {
-                "id": que[i].id,
-                "name": que[i].name,
-                "creator_id":que[i].creator_id,
-                "creator_name":self.User_Table.query.filter_by(id=que[i].creator_id).first().name,
-                
-            }
-            for i in range(len(que))
-        }
-    def insertComment(self,creator_id,recipe_id,comment):
-        ##
-        entry=self.Comment_Table(creator_id=creator_id,recipe_id=recipe_id,comment=comment)
-        self.db.session.add(entry)
-        self.db.session.commit()
-        print('Comment ',entry ," was added to database")
-    def getUsers(self):
-        que= self.User_Table.query.all()
-        print(que)
-    def getRecipes(self):
-        que= self.Recipe_Table.query.all()
-        print(que)
-    def getComments(self):
-        que= self.Comment_Table.query.all()
-        print(que)
     def deleteUser(self,user_id):
         self.User_Table.query.filter_by(id=user_id).delete()
         self.db.session.commit()
@@ -152,7 +119,32 @@ class Database:
         entry=self.Comment_Table.query.filter_by(id=comment_id).first()
         if entry.comment!=newComment:
             entry.comment=newComment 
+        self.db.session.commit()   
+        
+        
+        
+
+    def getRecipesbyCuisine(self,cuisine:str,recipe_limit:int):
+        print()
+        que=self.Recipe_Table.query.filter(cuisine==cuisine,self.Recipe_Table.id>recipe_limit).limit(20).all()
+        return {
+            i: {
+                "id": que[i].id,
+                "name": que[i].name,
+                "creator_id":que[i].creator_id,
+                "creator_name":self.User_Table.query.filter_by(id=que[i].creator_id).first().name,
+                
+            }
+            for i in range(len(que))
+        }
+    def insertComment(self,creator_id,recipe_id,comment):
+        ##
+        entry=self.Comment_Table(creator_id=creator_id,recipe_id=recipe_id,comment=comment)
+        self.db.session.add(entry)
         self.db.session.commit()
+        print('Comment ',entry ," was added to database")
+        
+    
     def changeRecipe(self,recipe_id,newName,newDescription,newIngredients):
         entry=self.Recipe_Table.query.filter_by(id=recipe_id).first()
         if entry.name!=newName:

@@ -9,28 +9,44 @@ from flask import Flask, send_from_directory
 from models import Database
 from dotenv import load_dotenv, find_dotenv
 import hashlib
+
+
 app = Flask(__name__, static_folder='./build/static')
 load_dotenv(find_dotenv())
+
+
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICSTIONS']= False
+
+
 salt='cs490project3'
+
 db=Database(app)
+
+
 @app.route('/register',methods=['POST'])
 def register():
     data = json.loads(request.data.decode())
     return registerUser(username=data['username'],password=data['password'],name=data['name'])
+    
+    
 def registerUser(username,password,name):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.insertUser(username=username,password=hashedpassword,name=name)
+    
+    
 @app.route('/login',methods=["GET","POST"])
 def login():
     data = json.loads(request.data.decode())
     return loginUser(username=data['username'],password=data['password'])
+    
+    
 def loginUser(username,password):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.User_Exist(username=username,password=hashedpassword)
+    
     
 @app.route("/AddRecipe",methods=["POST"])
 def addRecipe():
@@ -49,6 +65,8 @@ def getRecipeByID():
 def getRecipes():
     data = json.loads(request.data.decode())
     return getRecipesbyCuisine(data['cuisine'],data['recipe_limit'])
+    
+    
 def getRecipesbyCuisine(cuisine:str,recipe_limit:int):
     returnval= db.getRecipesbyCuisine(cuisine,recipe_limit)
     print(returnval)
