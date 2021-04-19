@@ -39,19 +39,11 @@ export function useForm(callback, validate){
     console.log(account);
     
     useEffect(()=>{
-        axios.get('/register', {
-                   params: {
-                        username: account['username'],
-                        password: account['password'],
-                        name: 'name name'
-                    }
-        }).then(res=>{
-               const data=res['data']
-                Object.entries(data['comments']).map((comment,index)=>{
-                    console.log(comment)
-                })
-        })
-    },[])
+      const data = account;
+      axios.post('/register', data)
+          .then(response => this.setAccount({ username: response.data.username }))
+          console.log(data);
+    });
   };
   
   const handleSubmitLogin = e => {
