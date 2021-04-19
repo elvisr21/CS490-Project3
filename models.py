@@ -161,4 +161,5 @@ class Database:
             entry.description=newDescription
         if entry.ingredients!=newIngredients:
             entry.ingredients=newIngredients
+
         self.db.session.commit()

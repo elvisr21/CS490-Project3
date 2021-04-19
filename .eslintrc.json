@@ -20,10 +20,10 @@
         "sourceType": "module"
     },
     "plugins": [
+        "only-warn",
         "react",
         "@typescript-eslint",
-        "prettier",
-        "only-warn"
+        "prettier"
     ],
     "rules": {
         "prettier/prettier": "warn",

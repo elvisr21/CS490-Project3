@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import validate from './FormValidation';
 import useForm from './useForm';
 import './Form.css';
