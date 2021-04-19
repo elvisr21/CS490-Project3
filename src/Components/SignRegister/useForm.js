@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export function useForm(callback, validate){
-  const [account, setAccount] = useState({
+  const [account, setAccount] = useState({ // to register
     username: '',
     password: '',
-    password2: ''
+    password2: '',
+    name: ''
   });
   
   //Login
-  const [login, setLogin] = useState({
+  const [login, setLogin] = useState({ // to login previous users
     username: '',
     password: '',
   });
@@ -32,18 +33,40 @@ export function useForm(callback, validate){
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    setErrors(validate(account));
-    setIsSubmitting(true);
+    var returnvalue = 0;
     
     console.log(account);
     
+<<<<<<< HEAD
     useEffect(()=>{
       const data = account;
       axios.post('/register', data)
           .then(response => this.setAccount({ username: response.data.username }))
           console.log(data);
     });
+=======
+    axios.post('/register', account)
+    .then(response => {
+      console.log(response);
+
+      if(response['data']['code'] == 0){
+        //setIsSubmitting(false);
+        alert(response['data']['message']);
+        //returnvalue = 1;
+      }
+      else{
+        console.log("here");
+        setErrors(validate(account));
+        setIsSubmitting(true);
+      }
+    }); // send data to backend endpoint
+    
+    // if(returnvalue != 1){
+    //   console.log("here");
+    //   console.log(isSubmitting);
+      
+    // }
+>>>>>>> login
   };
   
   const handleSubmitLogin = e => {
@@ -51,6 +74,8 @@ export function useForm(callback, validate){
     
     setErrors(validate(login));
     setIsSubmitting(true);
+    
+    axios.post('/login', login);// sends the login info to backend
     
     console.log(login);
   };

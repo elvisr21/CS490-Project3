@@ -11,17 +11,10 @@ const Register = ({ submitForm }) => {
     validate
   );
 
-<<<<<<< HEAD
 function clicked(){
   setLoginLink(true);
 }
 
-=======
-
-function clicked(){
-  setLoginLink(true);
-}
->>>>>>> 6709d24f5074275fdfc4aa4150b10e8eb61d89c5
 //console.log ("Login Link: ", loginLink)
   return (
     <>
@@ -32,6 +25,18 @@ function clicked(){
           Get started with us today! Create your account by filling out the
           information below.
         </h1>
+        <div className='form-inputs'>
+          <label className='form-label'>Full Name</label>
+          <input
+            className='form-input'
+            type='text'
+            name='name'
+            placeholder='Enter your name'
+            value={account.name}
+            onChange={handleChange}
+          />
+          {errors.username && <p>{errors.username}</p>}
+        </div>
         <div className='form-inputs'>
           <label className='form-label'>Username</label>
           <input

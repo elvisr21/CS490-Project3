@@ -161,4 +161,8 @@ class Database:
             entry.description=newDescription
         if entry.ingredients!=newIngredients:
             entry.ingredients=newIngredients
+<<<<<<< HEAD
         self.db.session.commit()
+=======
+        self.db.session.commit()
+>>>>>>> login
