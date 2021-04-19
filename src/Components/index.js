@@ -8,7 +8,7 @@ import { Recipe } from './Recipe/Recipe';
 import { User } from './User/User';
 import { CreateRecipe } from './CreateRecipe/CreateRecipe';
 
-export const TopbarComponent: React.FunctionComponent = (props) => {
+export const TopbarComponent : React.FunctionComponent = (props) => {
   const { id } = props;
   return <Topbar id={id} />;
 };
