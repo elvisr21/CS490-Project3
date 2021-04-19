@@ -20,7 +20,7 @@ const Form = () => {
         {!isSubmitted ? (
           <Register submitForm={submitForm}/>
         ) : (
-          <FormSuccess />
+          <FormSuccess href='/'/>
         )}
       </div>
     </>

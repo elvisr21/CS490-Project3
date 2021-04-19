@@ -37,14 +37,6 @@ export function useForm(callback, validate){
     
     console.log(account);
     
-<<<<<<< HEAD
-    useEffect(()=>{
-      const data = account;
-      axios.post('/register', data)
-          .then(response => this.setAccount({ username: response.data.username }))
-          console.log(data);
-    });
-=======
     axios.post('/register', account)
     .then(response => {
       console.log(response);
@@ -61,12 +53,12 @@ export function useForm(callback, validate){
       }
     }); // send data to backend endpoint
     
+    
     // if(returnvalue != 1){
     //   console.log("here");
     //   console.log(isSubmitting);
       
     // }
->>>>>>> login
   };
   
   const handleSubmitLogin = e => {
