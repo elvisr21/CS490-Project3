@@ -17,7 +17,13 @@ export function useForm(callback, validate){
   
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  
+  function isSubmittingTrue() {
+    setIsSubmitting((prevShown) => {
+      return !prevShown
+    })
+  }
+  
   const handleChange = e => {
     const { name, value } = e.target;
     setAccount({
@@ -33,30 +39,28 @@ export function useForm(callback, validate){
 
   const handleSubmit = e => {
     e.preventDefault();
-    var returnvalue = 0;
+    //let returnvalue = 0;
     
     console.log(account);
+    setErrors(validate(account));
+    isSubmittingTrue();
+    console.log(isSubmitting);
+    //const temp = {...errors};
     
-    axios.post('/register', account)
-    .then(response => {
-      console.log(response);
-
-      if(response['data']['code'] == 0){
-        //setIsSubmitting(false);
-        alert(response['data']['message']);
-        //returnvalue = 1;
-      }
-      else{
-        console.log("here");
-        setErrors(validate(account));
-        setIsSubmitting(true);
-      }
-    }); // send data to backend endpoint
+    // console.log(Object.keys(validate(account)).length);
     
-    // if(returnvalue != 1){
+    // if(Object.keys(validate(account)).length === 0){ // if there are no validation errors
+    //   //console.log(errors);
+      
+    //   callback();
+    //   console.log(isSubmitting);
+    // }
+    
+    // if(returnvalue !== 1){
+    //   setErrors(validate(account));
+    //   setIsSubmitting(true);
     //   console.log("here");
     //   console.log(isSubmitting);
-      
     // }
   };
   
@@ -73,6 +77,7 @@ export function useForm(callback, validate){
 
   useEffect(
     () => {
+      console.log(Object.keys(errors).length);
       if (Object.keys(errors).length === 0 && isSubmitting) {
         callback();
       }
