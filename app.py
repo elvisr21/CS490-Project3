@@ -80,6 +80,7 @@ def loginUser(username,password):
     }
 '''
 
+<<<<<<< HEAD
 # db.insertUser(username="test3",password="password",name="test1")
 # db.deleteUser(user_id=1)
 # db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
@@ -94,6 +95,9 @@ def loginUser(username,password):
 # db.deleteComment(comment_id=2)
 # db.changeComment(comment_id=3,newComment='commentt')
 # db.getComments()
+=======
+
+>>>>>>> 1062c74e9ea8a90bd723f7436e6518687ecc4801
 
 @app.route("/AddRecipe",methods=["POST"])
 def addRecipe():
