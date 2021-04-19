@@ -11,17 +11,10 @@ const Register = ({ submitForm }) => {
     validate
   );
 
-<<<<<<< HEAD
-function clicked(){
-  setLoginLink(true);
-}
-
-=======
 
 function clicked(){
   setLoginLink(true);
 }
->>>>>>> 6709d24f5074275fdfc4aa4150b10e8eb61d89c5
 //console.log ("Login Link: ", loginLink)
   return (
     <>
