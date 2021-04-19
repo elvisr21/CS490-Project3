@@ -11,7 +11,7 @@ import {
   CreateRecipeComponent,
 } from './Components';
 
-function App() {
+function App(): React.FunctionComponent {
   const [User, setSigned] = useState({
     isUser: false,
     id: -1,
@@ -21,7 +21,11 @@ function App() {
       <TopbarComponent id={User.id} />
       <Switch>
         <Route path="/" exact component={MainComponent} />
-        <Route path="/signRegister" exact component={SignRegisterComponent} />
+        <Route
+          path="/signRegister"
+          exact
+          component={() => <SignRegisterComponent func={setSigned} />}
+        />
         <Route path="/favorite" exact component={FavoriteComponent} />
         <Route path="/recipe/:RecipeID" exact component={RecipeComponent} />
         <Route path="/user/:UserID" exact component={UserComponent} />
