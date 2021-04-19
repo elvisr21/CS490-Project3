@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  pre-commit:
+  pre-commit: 
       build:
     
         runs-on: ubuntu-latest
