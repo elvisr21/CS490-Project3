@@ -9,9 +9,15 @@ import { User } from './User/User';
 import { CreateRecipe } from './CreateRecipe/CreateRecipe';
 
 export const TopbarComponent: React.FunctionComponent = (props) => () => <Topbar id={props.id} />;
+Topbar.PropTypes = {
+  id: PropTypes.number.isRequired,
+};
 export const SignRegisterComponent = (props) => <Form />;
 export const MainComponent = (props) => <Main />;
 export const FavoriteComponent = (props) => <Favorite />;
 export const RecipeComponent = (props) => <Recipe />;
 export const UserComponent = (props) => <User />;
 export const CreateRecipeComponent = (props) => <CreateRecipe id={props.id} />;
+CreateRecipeComponent.PropTypes = {
+  id: PropTypes.number.isRequired,
+};
