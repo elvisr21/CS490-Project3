@@ -31,5 +31,5 @@ jobs:
         - run: npm test
         - run: npx eslint src/
         
-      pre-commit: 
+  
 
