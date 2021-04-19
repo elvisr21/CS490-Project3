@@ -37,12 +37,21 @@ export function useForm(callback, validate){
     setIsSubmitting(true);
     
     console.log(account);
-    //axios.post('/register')
-    // useEffect(() => {
-    // // for the player moves
-    // socket.on('move', (data) => {
-      
-    // });
+    
+    useEffect(()=>{
+        axios.get('/register', {
+                   params: {
+                        username: account['username'],
+                        password: account['password'],
+                        name: 'name name'
+                    }
+        }).then(res=>{
+               const data=res['data']
+                Object.entries(data['comments']).map((comment,index)=>{
+                    console.log(comment)
+                })
+        })
+    },[])
   };
   
   const handleSubmitLogin = e => {
