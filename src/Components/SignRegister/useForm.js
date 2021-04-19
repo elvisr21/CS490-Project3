@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export function useForm(callback, validate){
-  const [account, setAccount] = useState({ // to register
+export function useForm(callback, validate) {
+  const [account, setAccount] = useState({
+    // to register
     username: '',
     password: '',
     password2: '',
-    name: ''
+    name: '',
   });
-  
-  //Login
-  const [login, setLogin] = useState({ // to login previous users
+
+  // Login
+  const [login, setLogin] = useState({
+    // to login previous users
     username: '',
     password: '',
   });
-  
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+<<<<<<< HEAD
   
   function isSubmittingTrue() {
     setIsSubmitting((prevShown) => {
@@ -25,20 +28,25 @@ export function useForm(callback, validate){
   }
   
   const handleChange = e => {
+=======
+
+  const handleChange = (e) => {
+>>>>>>> 6e5f3e99b61e995f2b3027c57d8cd7c94988397a
     const { name, value } = e.target;
     setAccount({
       ...account,
-      [name]: value
+      [name]: value,
     });
-    //login
+    // login
     setLogin({
       ...login,
-      [name]: value
+      [name]: value,
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     //let returnvalue = 0;
     
     console.log(account);
@@ -61,20 +69,45 @@ export function useForm(callback, validate){
     //   setIsSubmitting(true);
     //   console.log("here");
     //   console.log(isSubmitting);
+=======
+    const returnvalue = 0;
+
+    console.log(account);
+
+    axios.post('/register', account).then((response) => {
+      console.log(response);
+
+      if (response.data.code == 0) {
+        // setIsSubmitting(false);
+        alert(response.data.message);
+        // returnvalue = 1;
+      } else {
+        console.log('here');
+        setErrors(validate(account));
+        setIsSubmitting(true);
+      }
+    }); // send data to backend endpoint
+
+    // if(returnvalue != 1){
+    //   console.log("here");
+    //   console.log(isSubmitting);
+
+>>>>>>> 6e5f3e99b61e995f2b3027c57d8cd7c94988397a
     // }
   };
-  
-  const handleSubmitLogin = e => {
+
+  const handleSubmitLogin = (e) => {
     e.preventDefault();
-    
+
     setErrors(validate(login));
     setIsSubmitting(true);
-    
-    axios.post('/login', login);// sends the login info to backend
-    
+
+    axios.post('/login', login); // sends the login info to backend
+
     console.log(login);
   };
 
+<<<<<<< HEAD
   useEffect(
     () => {
       console.log(Object.keys(errors).length);
@@ -84,8 +117,15 @@ export function useForm(callback, validate){
     },
     [errors]
   );
+=======
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      callback();
+    }
+  }, [errors]);
+>>>>>>> 6e5f3e99b61e995f2b3027c57d8cd7c94988397a
 
   return { handleChange, handleSubmit, handleSubmitLogin, account, login, errors };
-};
+}
 
 export default useForm;

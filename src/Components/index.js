@@ -1,15 +1,29 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Topbar } from './Topbar/Topbar';
 import Form from './SignRegister/Form';
 import { Main } from './Main/Main';
 import { Favorite } from './Favorite/Favorite';
-import { Recipe } from './Recipe/Recipe';
+import Recipe from './Recipe/Recipe';
 import { User } from './User/User';
-import { CreateRecipe } from './CreateRecipe/CreateRecipe';
+import CreateRecipe from './CreateRecipe/CreateRecipe';
 
-export const TopbarComponent = () => <Topbar />;
-export const SignRegisterComponent = () => <Form />;
-export const MainComponent = () => <Main />;
-export const FavoriteComponent = () => <Favorite />;
-export const RecipeComponent = () => <Recipe />;
-export const UserComponent = () => <User />;
-export const CreateRecipeComponent = (props) => <CreateRecipe id={props.id} />;
+export const TopbarComponent: React.FunctionComponent = (props) => {
+  const { id } = props;
+  return <Topbar id={id} />;
+};
+TopbarComponent.propTypes = {
+  id: PropTypes.number.isRequired,
+};
+export const SignRegisterComponent: React.FunctionComponent = () => <Form />;
+export const MainComponent: React.FunctionComponent = () => <Main />;
+export const FavoriteComponent: React.FunctionComponent = () => <Favorite />;
+export const RecipeComponent: React.FunctionComponent = () => <Recipe />;
+export const UserComponent: React.FunctionComponent = () => <User />;
+export const CreateRecipeComponent: React.FunctionComponent = (props) => {
+  const { id } = props;
+  return <CreateRecipe id={id} />;
+};
+CreateRecipeComponent.propTypes = {
+  id: PropTypes.number.isRequired,
+};
