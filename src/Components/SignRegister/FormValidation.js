@@ -1,7 +1,7 @@
 export default function validateInfo(account) {
   let errors = {};
   
-  if(Object.keys(account).length == 2){ // this will check for login information
+  if(Object.keys(account).length === 2){ // this will check for login information
     if (!account.username.trim()) {
       errors.username = 'Username required';
     } 
@@ -31,7 +31,7 @@ export default function validateInfo(account) {
     }
   
     if (!account.password2) {
-      errors.password2 = 'Password is required';
+      errors.password2 === 'Password is required';
     } else if (account.password2 !== account.password) {
       errors.password2 = 'Passwords do not match';
     }

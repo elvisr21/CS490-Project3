@@ -1,7 +1,7 @@
 import './recipe.css'
 import {  useParams } from 'react-router-dom'
 import axios from 'axios'
-import {useState,useEffect} from 'react'
+import React, {useState,useEffect} from 'react'
 
 export const Recipe=()=>{
     const [recipe,setRecipe]=useState(undefined)
@@ -33,7 +33,7 @@ export const Recipe=()=>{
     console.log(recipe);
     return( 
         <>
-            { (recipe!=undefined) && 
+            { (recipe!==undefined) && 
                 <div className="recipe"> 
                     <img src={recipe['img']}/>
                     <div className="Recipe_Name">Name: {recipe["name"]}</div>

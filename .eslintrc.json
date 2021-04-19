@@ -17,6 +17,7 @@
         "sourceType": "module"
     },
     "plugins": [
+        "only-warn",
         "react",
         "@typescript-eslint",
         "prettier"
