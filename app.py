@@ -62,7 +62,7 @@ def login():
 def loginUser(username,password):
     hashedpassword=hashlib.md5((password+salt).encode()).hexdigest()
     return db.User_Exist(username=username,password=hashedpassword)
-<<<<<<< HEAD
+
     
 
 '''
@@ -79,7 +79,6 @@ def loginUser(username,password):
         
     }
 '''
-=======
 
 db.insertUser(username="test3",password="password",name="test1")
 db.deleteUser(user_id=1)
@@ -95,11 +94,7 @@ db.insertComment(creator_id=2,comment="comment",recipe_id=2)
 db.deleteComment(comment_id=2)
 db.changeComment(comment_id=3,newComment='commentt')
 db.getComments()
-<<<<<<< HEAD
 
-=======
->>>>>>> 6709d24f5074275fdfc4aa4150b10e8eb61d89c5
->>>>>>> login
 @app.route("/AddRecipe",methods=["POST"])
 def addRecipe():
     data=json.loads(request.data.decode())
