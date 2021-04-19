@@ -13,7 +13,7 @@ const Form = () => {
   return (
     <>
       <div className='form-container'>
-        <span className='close-btn'>×</span>
+        <a className='close-btn' href='/'>X</a>
         <div className='form-content-left'>
           <img className='form-img' src='images/register-logo.jpg' alt='register-logo' />
         </div>

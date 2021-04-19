@@ -37,6 +37,7 @@ takes json
 @app.route('/register',methods=['POST'])
 def register():
     data = json.loads(request.data.decode())
+    print(data)
     return registerUser(username=data['username'],password=data['password'],name=data['name'])
     
     
@@ -80,20 +81,20 @@ def loginUser(username,password):
     }
 '''
 
-db.insertUser(username="test3",password="password",name="test1")
-db.deleteUser(user_id=1)
-db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
-db.getUsers()
+# db.insertUser(username="test3",password="password",name="test1")
+# db.deleteUser(user_id=1)
+# db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
+# db.getUsers()
 
-db.insertRecipe(name='test2',creator_id=3,description='test',ingredients='test') 
-db.deleteRecipe(recipe_id=1)
-db.changeRecipe(recipe_id=2,newName="testt",newDescription='testt',newIngredients='testt')
-db.getRecipes()
+# db.insertRecipe(name='test2',creator_id=3,description='test',ingredients='test') 
+# db.deleteRecipe(recipe_id=1)
+# db.changeRecipe(recipe_id=2,newName="testt",newDescription='testt',newIngredients='testt')
+# db.getRecipes()
  
-db.insertComment(creator_id=2,comment="comment",recipe_id=2)  
-db.deleteComment(comment_id=2)
-db.changeComment(comment_id=3,newComment='commentt')
-db.getComments()
+# db.insertComment(creator_id=2,comment="comment",recipe_id=2)  
+# db.deleteComment(comment_id=2)
+# db.changeComment(comment_id=3,newComment='commentt')
+# db.getComments()
 
 @app.route("/AddRecipe",methods=["POST"])
 def addRecipe():
