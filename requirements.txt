@@ -5,4 +5,4 @@ Flask-SQLAlchemy==2.1
 coverage
 pylint
 psycopg2-binary
-
+scrypt

@@ -1,0 +1,32 @@
+#logo {
+  color: "white";
+  border-top: 2px solid #ff8533;
+  border-bottom: 2px solid #ff8533;
+  display: inline-block;
+  float: right;
+  text-align: right;
+  justify-content: space-between;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.navig {
+  padding: 5px;
+  display: inline-block;
+  justify-content: space-between;
+  margin-left: 5px;
+  margin-right: 5px;
+  left: 10px;
+}
+
+.navig a {
+  color: white;
+  border: 2px solid #e3fb69;
+  padding: 0px 8px 0px 8px;
+  text-decoration: none;
+  font-size: 25px;
+  display: inline;
+}
+
+.navig a:hover {
+  color: #ff8533;
+}
