@@ -37,6 +37,7 @@ export function useForm(callback, validate){
     setIsSubmitting(true);
     
     console.log(account);
+<<<<<<< HEAD
     
     useEffect(()=>{
       const data = account;
@@ -44,6 +45,14 @@ export function useForm(callback, validate){
           .then(response => this.setAccount({ username: response.data.username }))
           console.log(data);
     });
+=======
+    //axios.post('/register')
+    // useEffect(() => {
+    // // for the player moves
+    // socket.on('move', (data) => {
+      
+    // });
+>>>>>>> 6709d24f5074275fdfc4aa4150b10e8eb61d89c5
   };
   
   const handleSubmitLogin = e => {
