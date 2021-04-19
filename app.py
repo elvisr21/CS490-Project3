@@ -50,6 +50,7 @@ db.insertComment(creator_id=2,comment="comment",recipe_id=2)
 db.deleteComment(comment_id=2)
 db.changeComment(comment_id=3,newComment='commentt')
 db.getComments()
+
 @app.route("/AddRecipe",methods=["POST"])
 def addRecipe():
     data=json.loads(request.data.decode())
