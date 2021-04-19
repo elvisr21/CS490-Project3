@@ -17,6 +17,7 @@ export const CreateRecipe=(props)=>{
         'Instructions':[]
         
     }
+
     ingredients.map((ingredient,index)=>{
         const name=ingredient.children[0].value;
         const amount=ingredient.children[1].value;
@@ -164,7 +165,6 @@ const CreateRecipeForm=(props)=>{
                 <Ingredients/>
                 <Instructions/>
                 <FormItem type="submit" value="Submit Recipe"/>
-
         </form>
     )
 }

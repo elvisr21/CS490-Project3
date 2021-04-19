@@ -109,7 +109,8 @@ def getRecipeByID():
 
 @app.route('/GetRecipesbyCuisine',methods=["GET"])
 def getRecipes():
-    data = json.loads(request.data.decode())
+    cuisine=request.args.get('cuisine')
+    #data = json.loads(request.data.decode())
     return getRecipesbyCuisine(data['cuisine'],data['recipe_limit'])
     
     

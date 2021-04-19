@@ -4,6 +4,7 @@
         "es2021": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:react/recommended",
         "airbnb",
         "prettier"
@@ -19,7 +20,8 @@
     "plugins": [
         "react",
         "@typescript-eslint",
-        "prettier"
+        "prettier",
+         "only-warn"
     ],
     "rules": {
         "prettier/prettier": "warn"
