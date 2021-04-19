@@ -19,7 +19,6 @@ export function useForm(callback, validate) {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-<<<<<<< HEAD
   
   function isSubmittingTrue() {
     setIsSubmitting((prevShown) => {
@@ -28,10 +27,6 @@ export function useForm(callback, validate) {
   }
   
   const handleChange = e => {
-=======
-
-  const handleChange = (e) => {
->>>>>>> 6e5f3e99b61e995f2b3027c57d8cd7c94988397a
     const { name, value } = e.target;
     setAccount({
       ...account,
@@ -46,7 +41,6 @@ export function useForm(callback, validate) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-<<<<<<< HEAD
     //let returnvalue = 0;
     
     console.log(account);
@@ -69,30 +63,6 @@ export function useForm(callback, validate) {
     //   setIsSubmitting(true);
     //   console.log("here");
     //   console.log(isSubmitting);
-=======
-    const returnvalue = 0;
-
-    console.log(account);
-
-    axios.post('/register', account).then((response) => {
-      console.log(response);
-
-      if (response.data.code == 0) {
-        // setIsSubmitting(false);
-        alert(response.data.message);
-        // returnvalue = 1;
-      } else {
-        console.log('here');
-        setErrors(validate(account));
-        setIsSubmitting(true);
-      }
-    }); // send data to backend endpoint
-
-    // if(returnvalue != 1){
-    //   console.log("here");
-    //   console.log(isSubmitting);
-
->>>>>>> 6e5f3e99b61e995f2b3027c57d8cd7c94988397a
     // }
   };
 
@@ -107,23 +77,11 @@ export function useForm(callback, validate) {
     console.log(login);
   };
 
-<<<<<<< HEAD
-  useEffect(
-    () => {
-      console.log(Object.keys(errors).length);
-      if (Object.keys(errors).length === 0 && isSubmitting) {
-        callback();
-      }
-    },
-    [errors]
-  );
-=======
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       callback();
     }
   }, [errors]);
->>>>>>> 6e5f3e99b61e995f2b3027c57d8cd7c94988397a
 
   return { handleChange, handleSubmit, handleSubmitLogin, account, login, errors };
 }
