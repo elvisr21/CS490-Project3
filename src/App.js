@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { useState } from 'react';
 import {
   TopbarComponent,
@@ -21,7 +21,7 @@ function App() {
       <TopbarComponent id={User.id} />
       <Switch>
         <Route path="/" exact component={MainComponent} />
-        <Route path="/signRegister" exact component={SignRegisterComponent} />
+        {User.id == -1 && <Route path="/signRegister" exact component={SignRegisterComponent} />}
         <Route path="/favorite" exact component={FavoriteComponent} />
         <Route path="/recipe/:RecipeID" exact component={RecipeComponent} />
         <Route path="/user/:UserID" exact component={UserComponent} />
