@@ -130,7 +130,18 @@ class Database:
         self.db.session.commit()   
         
         
-        
+    def getRecipes(self):
+        que=self.Recipe_Table.query.limit(10).all()
+        return {
+            i: {
+                "id": que[i].id,
+                "name": que[i].name,
+                "creator_id":que[i].creator_id,
+                "creator_name":self.User_Table.query.filter_by(id=que[i].creator_id).first().name,
+                
+            }
+            for i in range(len(que))
+        }
 
     def getRecipesbyCuisine(self,cuisine:str,recipe_limit:int):
         print()
