@@ -1,6 +1,7 @@
 import './main.css'
 import {  useParams } from 'react-router-dom'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 import {useState,useEffect} from 'react'
 
 export const Main=()=>{
@@ -8,16 +9,16 @@ export const Main=()=>{
     
     useEffect(()=>{
         axios.get("/GetRecipes").then(res=>{
-              const data=res['data']
-              setRecipes({
-                "name": data["name"],
-                "maker": data["creator_name"]
-              })
+              console.log(res)
+              const data = res.data.returning
+              console.log(data)
+              setRecipes(data)
+              console.log(recipes)
             
         })
         
-    })
-    
+    },[])
+    const recipenav = "/recipe/"
     return(
         <div>
           { (recipes!=undefined) &&
@@ -25,13 +26,14 @@ export const Main=()=>{
               <thead>
                 <tr>
                   <th>Recipe</th>
+                  <th>Maker</th>
                 </tr>
               </thead>
               <tbody>
-                {recipes["name"].map((name, index) => (
+                {recipes.map((recipe, index) => (
                   <tr key={index}>
-                    <td>{name}</td>
-                    <td>{recipes["maker"][index]}</td>
+                    <td><Link to= {"/recipe/"+recipe["id"]}>{recipe.name}</Link></td>
+                    <td>{recipe.creator_name}</td>
                   </tr>
                 ))}
               </tbody>

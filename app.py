@@ -120,7 +120,9 @@ def getRecipeByID():
 
 @app.route('/GetRecipes',methods=["GET"])
 def getRecipes():
-    return db.getRecipes()
+    ret = db.getRecipes()
+    print(ret)
+    return ret
 
 @app.route('/GetRecipesbyCuisine',methods=["GET"])
 def getCuisineRecipes():
