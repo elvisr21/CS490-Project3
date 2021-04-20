@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import './recipe.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 
-export const Recipe = () => {
+const Recipe: React.FunctionComponent = () => {
   const [recipe, setRecipe] = useState(undefined);
   const id = useParams().RecipeID;
   // const RecipeId= props.params.RecipeID;
@@ -16,9 +16,6 @@ export const Recipe = () => {
       })
       .then((res) => {
         const { data } = res;
-        Object.entries(data.comments).map((comment, index) => {
-          console.log(comment);
-        });
         setRecipe({
           name: data.name,
           creator_id: data.creator_id,
@@ -32,12 +29,11 @@ export const Recipe = () => {
         });
       });
   }, []);
-  console.log(recipe);
   return (
     <>
-      {recipe != undefined && (
+      {recipe !== undefined && (
         <div className="recipe">
-          <img src={recipe.img} />
+          <img src={recipe.img} alt="Recipe_Image" />
           <div className="Recipe_Name">Name: {recipe.name}</div>
           <div className="Creator">Creator: {recipe.creator_name}</div>
           <div className="Creator_id">Creator_id: {recipe.creator_id}</div>
@@ -69,3 +65,5 @@ export const Recipe = () => {
     </>
   );
 };
+
+export default Recipe;

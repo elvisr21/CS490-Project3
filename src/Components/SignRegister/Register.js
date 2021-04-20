@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import { useState } from 'react';
 import validate from './FormValidation';
 import useForm from './useForm';
 import './Form.css';
 
 const Register = ({ submitForm }) => {
   const [loginLink, setLoginLink] = useState(false);
-  const { handleChange, handleSubmit, handleSubmitLogin, account, login, errors } = useForm(
+  const { handleChange, handleSubmit, handleSubmitLogin, userId, account, login, errors } = useForm(
     submitForm,
     validate,
   );
@@ -14,7 +14,8 @@ const Register = ({ submitForm }) => {
   function clicked() {
     setLoginLink(true);
   }
-  // console.log ("Login Link: ", loginLink)
+
+  //console.log ("Login Link: ", loginLink)
   return (
     <>
       {!loginLink ? (
@@ -23,6 +24,17 @@ const Register = ({ submitForm }) => {
             <h1>
               Get started with us today! Create your account by filling out the information below.
             </h1>
+            <div className="form-inputs">
+              <label className="form-label">Full Name</label>
+              <input
+                className="form-input"
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                value={account.name}
+                onChange={handleChange}
+              />
+            </div>
             <div className="form-inputs">
               <label className="form-label">Username</label>
               <input
@@ -34,6 +46,7 @@ const Register = ({ submitForm }) => {
                 onChange={handleChange}
               />
               {errors.username && <p>{errors.username}</p>}
+              {errors.userexists && <p>{errors.userexists}</p>}
             </div>
             <div className="form-inputs">
               <label className="form-label">Password</label>

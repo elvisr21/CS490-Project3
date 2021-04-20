@@ -3,7 +3,7 @@ import './Form.css';
 import Register from './Register';
 import FormSuccess from './FormSuccess';
 
-const Form = () => {
+const Form = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function submitForm() {
@@ -13,11 +13,13 @@ const Form = () => {
   return (
     <>
       <div className="form-container">
-        <span className="close-btn">×</span>
+        <a className="close-btn" href="/">
+          x
+        </a>
         <div className="form-content-left">
           <img className="form-img" src="images/register-logo.jpg" alt="register-logo" />
         </div>
-        {!isSubmitted ? <Register submitForm={submitForm} /> : <FormSuccess />}
+        {!isSubmitted ? <Register func={props.func} submitForm={submitForm} /> : <FormSuccess />}
       </div>
     </>
   );
