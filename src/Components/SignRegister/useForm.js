@@ -19,14 +19,14 @@ export function useForm(callback, validate) {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   function isSubmittingTrue() {
     setIsSubmitting((prevShown) => {
-      return !prevShown
-    })
+      return !prevShown;
+    });
   }
-  
-  const handleChange = e => {
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setAccount({
       ...account,
@@ -42,22 +42,22 @@ export function useForm(callback, validate) {
   const handleSubmit = (e) => {
     e.preventDefault();
     //let returnvalue = 0;
-    
+
     console.log(account);
     setErrors(validate(account));
     isSubmittingTrue();
     console.log(isSubmitting);
     //const temp = {...errors};
-    
+
     // console.log(Object.keys(validate(account)).length);
-    
+
     // if(Object.keys(validate(account)).length === 0){ // if there are no validation errors
     //   //console.log(errors);
-      
+
     //   callback();
     //   console.log(isSubmitting);
     // }
-    
+
     // if(returnvalue !== 1){
     //   setErrors(validate(account));
     //   setIsSubmitting(true);
@@ -81,6 +81,7 @@ export function useForm(callback, validate) {
   };
 
   useEffect(() => {
+    console.log(Object.keys(errors).length);
     if (Object.keys(errors).length === 0 && isSubmitting) {
       callback();
     }
