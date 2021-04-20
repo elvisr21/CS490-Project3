@@ -72,7 +72,10 @@ export function useForm(callback, validate) {
     setErrors(validate(login));
     setIsSubmitting(true);
 
-    axios.post('/login', login); // sends the login info to backend
+    axios.post('/login', login).then(
+      (response)=>{
+        console.log(response)
+      }); // sends the login info to backend
 
     console.log(login);
   };

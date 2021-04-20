@@ -124,10 +124,8 @@ def addRecipe():
        params: {
             id: id
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> login
+
     }
     id being recipe id
 '''
@@ -143,7 +141,7 @@ def getRecipeByID():
 def getRecipes():
     cuisine=request.args.get('cuisine')
     #data = json.loads(request.data.decode())
-    return getRecipesbyCuisine(data['cuisine'],data['recipe_limit'])
+    #return getRecipesbyCuisine(data['cuisine'],data['recipe_limit'])
     
     
 def getRecipesbyCuisine(cuisine:str,recipe_limit:int):
