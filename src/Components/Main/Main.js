@@ -1,8 +1,3 @@
-import './main.css'
+import './main.css';
 
-export const Main=()=>{
-    
-    return(
-        <h1>main</h1>
-    )
-}
+export const Main = () => <h1>main</h1>;

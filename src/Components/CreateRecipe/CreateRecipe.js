@@ -1,172 +1,197 @@
-import './CreateRecipe.css'
-import axios from 'axios'
-export const CreateRecipe=(props)=>{
-    const sendRecipe=(e)=>{
-    e.preventDefault();
-    console.log(e);
-    const ingredients=Array.from(document.getElementById("IngredientItems").children)
-    const instructions=Array.from(document.getElementById("InstructionItems").children)
+import React from 'react';
+import './CreateRecipe.css';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 
-    const data={
-        "id":props.id,
-        "image":e.target[0].value,
-        "name":e.target[1].value,
-        "description":e.target[2].value,
-        "cuisine":e.target[3].value,
-        "Ingredients": [],
-        'Instructions':[]
-        
-    }
-    ingredients.map((ingredient,index)=>{
-        const name=ingredient.children[0].value;
-        const amount=ingredient.children[1].value;
-        data['Ingredients'][index]={
-            "name":name,
-            "amount":amount
-        }
+const CreateRecipeForm: React.FunctionComponent = (props) => {
+  const FormItem = ({ type, message, value, control }) => (
+    <div className="FormItem">
+      {type !== 'submit' && (
+        <label htmlFor={control}>
+          {message}
+          <input type={type} placeholder={value} id={control} />
+        </label>
+      )}
+    </div>
+  );
+  FormItem.propTypes = {
+    type: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    control: PropTypes.string.isRequired,
+  };
+  const OptionItem: React.FunctionComponent = ({ message }) => {
+    const OptionItemItem = ({ value, item }) => <option value={value}>{item}</option>;
+    OptionItemItem.propTypes = {
+      item: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    };
 
-    })
-    instructions.map((ingredient,index)=>{
-        const name=ingredient.children[0].value;
-        data['Instructions'][index]=name
-    })
-    console.log(e)
-    axios.post("/AddRecipe", data)
-}
-    return(
-        <div className="CreateRecipe">
-            user: {props.id}
-            <CreateRecipeForm func={sendRecipe}/>
-        </div>
-    )
-}
-
-const CreateRecipeForm=(props)=>{
-    const FormItem=(props)=>{
-        return(
-            <div className="FormItem">
-                {(props.type!='submit')  && <label>{props.message}</label>}
-                <input type={props.type} placeholder={props.value}></input>
-            </div>
-        )
-    }
-    const OptionItem=(props)=>{
-        const OptionItemItem=(props)=>{
-            return(
-                <option value={props.value}>{props.item}</option>
-            )
-        }
-        return(
-            <div className="OptionItem">
-                <label for="myfile">{props.message}</label>
-                <select>
-                    <OptionItemItem value="chinese" item="Chinese"/>
-                    <OptionItemItem value="chinese" item="Japanese"/>
-                    <OptionItemItem value="chinese" item="Italian"/>
-                    <OptionItemItem value="chinese" item="American"/>
-                    <OptionItemItem value="chinese" item="Australian"/>
-                </select>
-            </div>
-        )
-    }
-    const Ingredients=()=>{
-        const addIngredient=(e)=>{
-            e.preventDefault();
-            const ingredient=document.getElementById("ingredient_name");
-            const ingredients=Array.from(document.getElementById("IngredientItems").children)
-            for (var i = 0; i < ingredients.length; i++) {
-                const name=ingredients[i].children[0].value;
-                if (name===ingredient.value){
-                    alert("Duplicate Ingredient Detected")
-                    return
-                    
-                }
-            } 
-            const amount = document.getElementById("ingredient_amount");
-            const container = document.getElementById("IngredientItems");
-            var div=document.createElement("div");
-            div.classList.add("Ingredient");
-            
-            var IngredientName=document.createElement("INPUT");
-            
-            IngredientName.classList.add("Ingredient_Name");
-            IngredientName.setAttribute("type", "text");
-            IngredientName.setAttribute("value", ingredient.value);
-            IngredientName.readOnly = true;
-            IngredientName.onclick=()=>{
-                IngredientName.readOnly= !IngredientName.readOnly
-            }
-            var IngredientAmount=document.createElement("INPUT");
-            
-            IngredientAmount.classList.add("Ingredient_Amount")
-            IngredientAmount.setAttribute("type", "text");
-            IngredientAmount.setAttribute("value", amount.value);
-            IngredientAmount.readOnly = true;
-            IngredientAmount.onClick=()=>{
-                IngredientAmount.readOnly= !IngredientAmount.readOnly
-            }
-            
-            div.appendChild(IngredientName);
-            div.appendChild(IngredientAmount)
-            container.appendChild(div)
-        }
-        return(
-        <div className="Ingredients">
-            <label>Ingredients: </label> <br/>
-            <label>Ingredients Name: </label>
-            <input type="text" id="ingredient_name" placeholder="test"  /> <br/>
-            
-            <label>Ingredients Amount: </label>
-            <input type="text" id="ingredient_amount" placeholder="5"/>  <br/>
-            <button type ="button" onClick={addIngredient}>Add Ingredient</button>
-            <div className="IngredientItems" id="IngredientItems" ></div>
-        </div>
-        )
-    }
-    const Instructions=()=>{
-        
-        const addInstructions=(e)=>{
-            e.preventDefault();
-            const instruction=document.getElementById("ingredient_name");
-            const container=document.getElementById("InstructionItems");
-            var div=document.createElement("div");
-            div.classList.add("Instruction")
-            var newInstruction=document.createElement("INPUT");
-            
-            newInstruction.classList.add("Ingredient_Name");
-            newInstruction.setAttribute("type", "text");
-            newInstruction.setAttribute("value", instruction.value);
-            newInstruction.readOnly = true;
-            newInstruction.onclick=()=>{
-                newInstruction.readOnly= !newInstruction.readOnly
-            }
-            div.appendChild(newInstruction)
-            container.appendChild(div)
-
-
-        }
-        return(
-        <div className="Instructions">
-            <label>Instructions: </label> <br/>
-            <input type="text" id="instruction" placeholder="test"  /> <br/>
-
-            <button type ="button" onClick={addInstructions}>Add Instruction</button>
-            <div className="InstructionItems" id="InstructionItems" ></div>
-        </div>
-        )
-    }
     return (
-        <form className="CreateRecipeForm" onSubmit={props.func}> {props.children}
-            <FormItem type='input' message="Image_URL: "  value="file_Url"/>
-                <FormItem type="input" message="Recipe Name: " value="name"/>
-                <FormItem type='input' message= "Description: " value="description"/>
-                <OptionItem  message= "Cuisine: "/>
-                <Ingredients/>
-                <Instructions/>
-                <FormItem type="submit" value="Submit Recipe"/>
+      <div className="OptionItem">
+        <label htmlFor="select">{message}</label>
+        <select id="select">
+          <OptionItemItem value="chinese" item="Chinese" />
+          <OptionItemItem value="chinese" item="Japanese" />
+          <OptionItemItem value="chinese" item="Italian" />
+          <OptionItemItem value="chinese" item="American" />
+          <OptionItemItem value="chinese" item="Australian" />
+        </select>
+      </div>
+    );
+  };
+  OptionItem.propTypes = {
+    message: PropTypes.string.isRequired,
+  };
+  const Ingredients: React.FunctionComponent = () => {
+    const addIngredient = (e) => {
+      e.preventDefault();
+      const ingredient = document.getElementById('ingredient_name');
+      const ingredients = Array.from(document.getElementById('IngredientItems').children);
+      for (let i = 0; i < ingredients.length; i += 1) {
+        const name = ingredients[i].children[0].value;
+        if (name === ingredient.value) {
+          /* eslint-disable no-alert */
+          alert('Duplicate Ingredient Detected');
+          /* eslint-enable no-alert */
+          return;
+        }
+      }
+      const amount = document.getElementById('ingredient_amount');
+      const container = document.getElementById('IngredientItems');
+      const div = document.createElement('div');
+      div.classList.add('Ingredient');
 
-        </form>
-    )
-}
+      const IngredientName = document.createElement('INPUT');
 
+      IngredientName.classList.add('Ingredient_Name');
+      IngredientName.setAttribute('type', 'text');
+      IngredientName.setAttribute('value', ingredient.value);
+      IngredientName.readOnly = true;
+      IngredientName.onclick = () => {
+        IngredientName.readOnly = !IngredientName.readOnly;
+      };
+      const IngredientAmount = document.createElement('INPUT');
 
+      IngredientAmount.classList.add('Ingredient_Amount');
+      IngredientAmount.setAttribute('type', 'text');
+      IngredientAmount.setAttribute('value', amount.value);
+      IngredientAmount.readOnly = true;
+      IngredientAmount.onClick = () => {
+        IngredientAmount.readOnly = !IngredientAmount.readOnly;
+      };
+
+      div.appendChild(IngredientName);
+      div.appendChild(IngredientAmount);
+      container.appendChild(div);
+    };
+    return (
+      <div className="Ingredients">
+        <h2>Ingredients: </h2> <br />
+        <label htmlFor="ingredient_name">
+          Ingredients Name: <input type="text" id="ingredient_name" placeholder="test" /> <br />
+        </label>
+        <label htmlFor="ingredient_amount">
+          Ingredients Amount: <input type="text" id="ingredient_amount" placeholder="5" /> <br />
+        </label>
+        <button type="button" onClick={addIngredient}>
+          Add Ingredient
+        </button>
+        <div className="IngredientItems" id="IngredientItems" />
+      </div>
+    );
+  };
+  const Instructions: React.FunctionComponent = () => {
+    const addInstructions = (e) => {
+      e.preventDefault();
+      const instruction = document.getElementById('ingredient_name');
+      const container = document.getElementById('InstructionItems');
+      const div = document.createElement('div');
+      div.classList.add('Instruction');
+      const newInstruction = document.createElement('INPUT');
+
+      newInstruction.classList.add('Ingredient_Name');
+      newInstruction.setAttribute('type', 'text');
+      newInstruction.setAttribute('value', instruction.value);
+      newInstruction.readOnly = true;
+      newInstruction.onclick = () => {
+        newInstruction.readOnly = !newInstruction.readOnly;
+      };
+      div.appendChild(newInstruction);
+      container.appendChild(div);
+    };
+    return (
+      <div className="Instructions">
+        <label htmlFor="Instructions">
+          Instructions: <input type="text" id="instruction" placeholder="test" /> <br />
+        </label>{' '}
+        <br />
+        <button type="button" onClick={addInstructions}>
+          Add Instruction
+        </button>
+        <div className="InstructionItems" id="InstructionItems" />
+      </div>
+    );
+  };
+
+  const { func } = props;
+  const { children } = props;
+  return (
+    <form className="CreateRecipeForm" onSubmit={func}>
+      {children}
+      <FormItem type="input" message="Image_URL: " value="file_Url" control="file_url" />
+      <FormItem type="input" message="Recipe Name: " value="name" control="recipe_name" />
+      <FormItem type="input" message="Description: " value="description" control="description" />
+      <OptionItem message="Cuisine: " />
+      <Ingredients />
+      <Instructions />
+      <FormItem type="submit" value="Submit Recipe" control="submit" />
+    </form>
+  );
+};
+CreateRecipeForm.propTypes = {
+  children: PropTypes.node.isRequired,
+  func: PropTypes.func.isRequired,
+};
+
+const CreateRecipe: React.FunctionComponent = ({ id }) => {
+  const sendRecipe: React.FunctionComponent = (e) => {
+    e.preventDefault();
+    const ingredients = Array.from(document.getElementById('IngredientItems').children);
+    const instructions = Array.from(document.getElementById('InstructionItems').children);
+
+    const data = {
+      id,
+      image: e.target[0].value,
+      name: e.target[1].value,
+      description: e.target[2].value,
+      cuisine: e.target[3].value,
+      Ingredients: [],
+      Instructions: [],
+    };
+
+    ingredients.forEach((ingredient, index) => {
+      const name = ingredient.children[0].value;
+      const amount = ingredient.children[1].value;
+      data.Ingredients[index] = {
+        name,
+        amount,
+      };
+    });
+    instructions.forEach((ingredient, index) => {
+      const name = ingredient.children[0].value;
+      data.Instructions[index] = name;
+    });
+    axios.post('/AddRecipe', data);
+  };
+  return (
+    <div className="CreateRecipe">
+      user: {id}
+      <CreateRecipeForm func={sendRecipe} />
+    </div>
+  );
+};
+CreateRecipe.propTypes = {
+  id: PropTypes.number.isRequired,
+};
+export default CreateRecipe;

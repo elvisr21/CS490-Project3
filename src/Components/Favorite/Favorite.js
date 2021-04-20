@@ -1,6 +1,3 @@
-import './favorite.css'
+import './favorite.css';
 
-
-export const Favorite=()=>{
-    return <h1>Favorite</h1>
-}
+export const Favorite = () => <h1>Favorite</h1>;
