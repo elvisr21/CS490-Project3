@@ -1,14 +1,18 @@
+"""
+This is the main backend of our app.
+"""
+# pylint: disable=E1101, C0413, C0103, W1508, R0903, W0603, E0602, W0404, C0301, W0105, W0612, C0411, C0412
 import os
+import hashlib
 from flask import Flask, send_from_directory, json, request
 from dotenv import load_dotenv, find_dotenv
-from flask_socketio import SocketIO
-from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import desc
+#from flask_socketio import SocketIO
+#from flask_cors import CORS
+#from flask_sqlalchemy import SQLAlchemy
+#from sqlalchemy import desc
 from flask import Flask, send_from_directory
 from models import Database
 from dotenv import load_dotenv, find_dotenv
-import hashlib
 
 app = Flask(__name__, static_folder='./build/static')
 load_dotenv(find_dotenv())
@@ -24,7 +28,7 @@ salt = 'cs490project3'
 db = Database(app)
 '''
 register endpoint
-takes json 
+takes json
 {
     'username':'test',
     'password':'test',
@@ -35,6 +39,7 @@ takes json
 
 @app.route('/register', methods=['POST'])
 def register():
+    """This send register info from client to db"""
     data = json.loads(request.data.decode())
     print(data)
     return registerUser(username=data['username'],
@@ -43,32 +48,35 @@ def register():
 
 
 def registerUser(username, password, name):
+    """This will hash the password from a users register"""
     hashedpassword = hashlib.md5((password + salt).encode()).hexdigest()
     return db.insertUser(username=username, password=hashedpassword, name=name)
 
 
-'''
+"""
 login endpoint 
 takes json
 {
     'username':'test',
     'password':'test'
 }
-'''
+"""
 
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
+    """This takes login info from client to check with the db"""
     data = json.loads(request.data.decode())
     return loginUser(username=data['username'], password=data['password'])
 
 
 def loginUser(username, password):
+    """This will check the hashed password from the login info"""
     hashedpassword = hashlib.md5((password + salt).encode()).hexdigest()
     return db.User_Exist(username=username, password=hashedpassword)
 
 
-'''
+"""
     endpoint to add new recipes
     takes json
     {
@@ -81,7 +89,7 @@ def loginUser(username, password):
         'instructions':[]
         
     }
-'''
+"""
 
 # db.insertUser(username="test3",password="password",name="test1")
 # db.deleteUser(user_id=1)
@@ -116,6 +124,7 @@ def loginUser(username, password):
 
 @app.route("/AddRecipe", methods=["POST"])
 def addRecipe():
+    """This lets a user add a recipe"""
     data = json.loads(request.data.decode())
     return db.insertRecipe(name=data['name'],
                            creator_id=data['id'],
@@ -126,7 +135,7 @@ def addRecipe():
                            instructions=json.dumps(data['Instructions']))
 
 
-'''
+"""
     endpoint for getting recipies for id for recipe page
     takes json
     {
@@ -137,23 +146,26 @@ def addRecipe():
 
     }
     id being recipe id
-'''
+"""
 
 
 @app.route('/getRecipebyId', methods=["GET"])
 def getRecipeByID():
+    """This will get the recipe with its id in the table"""
     Recipe_ID = request.args.get('id')
     return db.getRecipesById(Recipe_ID)
 
 
 @app.route('/GetRecipesbyCuisine', methods=["GET"])
 def getRecipes():
+    """This gets the recipies"""
     cuisine = request.args.get('cuisine')
     #data = json.loads(request.data.decode())
     return getRecipesbyCuisine(data['cuisine'], data['recipe_limit'])
 
 
 def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
+    """This gets the recipies based on the cuisine they picked"""
     returnval = db.getRecipesbyCuisine(cuisine, recipe_limit)
     print(returnval)
     return returnval
@@ -182,6 +194,7 @@ def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')
 def index(filename):
+    """This is used to test the app with mock data"""
     return send_from_directory('./build', filename)
 
 

@@ -1,13 +1,19 @@
+"""
+This will create the tables for the database
+"""
+# unusual errors are disabled
+# pylint: disable=E1101, R0913, C0413, C0103, W1508, R0903, W0603, E0602, W0404, C0301, W0105, W0612, C0411, C0412, W0611, R0124, C0121
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc, exc, asc
 from flask import json
 
-
 class Database:
+    """This is the database class"""
     def __init__(self, app):
         self.db = SQLAlchemy(app)
 
         class User(self.db.Model):
+            """Makes the user table"""
             id = self.db.Column(self.db.Integer, primary_key=True)
             username = self.db.Column(self.db.String(80),
                                       unique=True,
@@ -26,6 +32,7 @@ class Database:
         self.User_Table = User
 
         class Recipe(self.db.Model):
+            """Makes the user recipe"""
             id = self.db.Column(self.db.Integer, primary_key=True)
             name = self.db.Column(self.db.String(), nullable=False)
             creator_id = self.db.Column(self.db.Integer,
@@ -45,6 +52,7 @@ class Database:
         self.Recipe_Table = Recipe
 
         class Comments(self.db.Model):
+            """Makes the user comments"""
             id = self.db.Column(self.db.Integer, primary_key=True)
             creator_id = self.db.Column(self.db.Integer,
                                         self.db.ForeignKey('user.id'),
@@ -64,6 +72,7 @@ class Database:
 
     #inserts user and returns a user id
     def insertUser(self, username: str, password: str, name: str):
+        """This methods inserts the users into the table"""
         try:
             entry = self.User_Table(username=username,
                                     password=password,
@@ -78,6 +87,7 @@ class Database:
 
     #checks if user exist
     def User_Exist(self, username: str, password: str):
+        """This method checks if the user exists or not"""
         exist = self.User_Table.query.filter_by(username=username,
                                                 password=password).first()
         if exist == None:
@@ -89,6 +99,7 @@ class Database:
     #inserts recipe to database
     def insertRecipe(self, name: str, creator_id: int, description: str,
                      ingredients: str, cuisine: str, img, instructions):
+        """This will insert a new recipe"""
         entry = self.Recipe_Table(name=name,
                                   creator_id=creator_id,
                                   description=description,
@@ -103,6 +114,7 @@ class Database:
 
     #search recipes by id and returns recipe info with comments
     def getRecipesById(self, recipe_id: int):
+        """This wil get the recipe by its id"""
         entry = self.Recipe_Table.query.join(
             self.User_Table,
             self.User_Table.id == self.Recipe_Table.creator_id).add_columns(
@@ -135,21 +147,25 @@ class Database:
 
     #deletes user by id
     def deleteUser(self, user_id):
+        """This is to delete a users"""
         self.User_Table.query.filter_by(id=user_id).delete()
         self.db.session.commit()
 
     #deletes recipe by id
     def deleteRecipe(self, recipe_id):
+        """This is to delete a recipe"""
         self.Recipe_Table.query.filter_by(id=recipe_id).delete()
         self.db.session.commit()
 
     #delete comment by id
     def deleteComment(self, comment_id):
+        """This is to delete a comment"""
         self.Comment_Table.query.filter_by(id=comment_id).delete()
         self.db.session.commit()
 
     #changes user info
     def changeUser(self, user_id, newUsername, newName):
+        """This is to change the user name"""
         entry = self.User_Table.query.filter_by(id=user_id).first()
         if entry.username != newUsername:
             entry.username = newUsername
@@ -159,12 +175,14 @@ class Database:
 
     #changes comment info
     def changeComment(self, comment_id, newComment):
+        """This will change the comment"""
         entry = self.Comment_Table.query.filter_by(id=comment_id).first()
         if entry.comment != newComment:
             entry.comment = newComment
         self.db.session.commit()
 
     def getRecipesbyCuisine(self, cuisine: str, recipe_limit: int):
+        """This wil get the recipe by its cuisine"""
         print()
         que = self.Recipe_Table.query.filter(
             cuisine == cuisine,
@@ -185,6 +203,7 @@ class Database:
         }
 
     def insertComment(self, creator_id, recipe_id, comment):
+        """This lets the user add a comment"""
         ##
         entry = self.Comment_Table(creator_id=creator_id,
                                    recipe_id=recipe_id,
@@ -194,6 +213,7 @@ class Database:
         print('Comment ', entry, " was added to database")
 
     def changeRecipe(self, recipe_id, newName, newDescription, newIngredients):
+        """This lets user edit its recipe"""
         entry = self.Recipe_Table.query.filter_by(id=recipe_id).first()
         if entry.name != newName:
             entry.name = newName
