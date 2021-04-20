@@ -87,6 +87,7 @@ export function useForm(callback, validate) {
     [errors]
   );
 
+
   return { handleChange, handleSubmit, handleSubmitLogin, account, login, errors };
 }
 
