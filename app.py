@@ -135,54 +135,35 @@ def addRecipe():
             id: id
         }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1b8f1c52e768247462c9a1e22ae75058cdcf82b2
     }
     id being recipe id
 """
 
 
-<<<<<<< HEAD
 @app.route('/GetRecipes',methods=["GET"])
 def getRecipes():
+    """This gets the recipies"""
     ret = db.getRecipes()
     print(ret)
     return ret
 
 @app.route('/GetRecipesbyCuisine',methods=["GET"])
 def getCuisineRecipes():
+    """gets recipes by cuisine"""
     cuisine=request.args.get('cuisine')
     #data = json.loads(request.data.decode())
-=======
+    return getRecipesbyCuisine(data['cuisine'], data['recipe_limit'])
+    
 @app.route('/getRecipebyId', methods=["GET"])
 def getRecipeByID():
     """This will get the recipe with its id in the table"""
     Recipe_ID = request.args.get('id')
     return db.getRecipesById(Recipe_ID)
-
-
-@app.route('/GetRecipesbyCuisine', methods=["GET"])
-def getRecipes():
-    """This gets the recipies"""
-    cuisine = request.args.get('cuisine')
-    #data = json.loads(request.data.decode())
-<<<<<<< HEAD
->>>>>>> 18e2bb3a179aa062587433d302bb4dbfb39d7a25
-    #return getRecipesbyCuisine(data['cuisine'],data['recipe_limit'])
     
-    
-def getRecipesbyCuisine(cuisine:str,recipe_limit:int):
-    returnval= db.getRecipesbyCuisine(cuisine,recipe_limit)
-=======
-    return getRecipesbyCuisine(data['cuisine'], data['recipe_limit'])
-
 
 def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
     """This gets the recipies based on the cuisine they picked"""
     returnval = db.getRecipesbyCuisine(cuisine, recipe_limit)
->>>>>>> 1b8f1c52e768247462c9a1e22ae75058cdcf82b2
     print(returnval)
     return returnval
 
