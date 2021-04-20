@@ -72,9 +72,10 @@ export function useForm(callback, validate) {
     setErrors(validate(login));
     setIsSubmitting(true);
 
-    axios.post('/login', login); // sends the login info to backend
-
-    console.log(login);
+    axios.post('/login', login)
+    .then(response => {
+      console.log(response); // use this to pass to pass username (unique) for the main web page after checking login status
+    });
   };
 
   useEffect(
