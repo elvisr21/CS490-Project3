@@ -124,10 +124,7 @@ def addRecipe():
        params: {
             id: id
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> login
     }
     id being recipe id
 '''
