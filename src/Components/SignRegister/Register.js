@@ -6,7 +6,7 @@ import './Form.css';
 
 const Register = ({ submitForm }) => {
   const [loginLink, setLoginLink] = useState(false);
-  const { handleChange, handleSubmit, handleSubmitLogin, account, login, errors } = useForm(
+  const { handleChange, handleSubmit, handleSubmitLogin, userId, account, login, errors } = useForm(
     submitForm,
     validate,
   );

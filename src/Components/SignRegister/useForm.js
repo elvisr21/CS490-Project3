@@ -19,6 +19,7 @@ export function useForm(callback, validate) {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userId, setUserId] = useState();
 
   function isSubmittingTrue() {
     setIsSubmitting((prevShown) => {
@@ -72,14 +73,13 @@ export function useForm(callback, validate) {
     setErrors(validate(login));
     setIsSubmitting(true);
 
-    axios.post('/login', login).then(
-      (response)=>{
-        console.log(response)
-      }); // sends the login info to backend
-
-    console.log(login);
+    axios.post('/login', login).then((response) => {
+      //console.log(response['config']['data']['username']);
+      setUserId(response['data']['id']); // currently not passing the userId to parent
+      //console.log(response['data']['id']); // use this to pass to pass username (unique) for the main web page after checking login status
+    });
   };
-
+  console.log(userId);
   useEffect(() => {
     console.log(Object.keys(errors).length);
     if (Object.keys(errors).length === 0 && isSubmitting) {
@@ -87,7 +87,7 @@ export function useForm(callback, validate) {
     }
   }, [errors]);
 
-  return { handleChange, handleSubmit, handleSubmitLogin, account, login, errors };
+  return { handleChange, handleSubmit, handleSubmitLogin, userId, account, login, errors };
 }
 
 export default useForm;
