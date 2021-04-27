@@ -144,10 +144,8 @@ def addRecipe():
             id: id
         }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 1b8f1c52e768247462c9a1e22ae75058cdcf82b2
+
     }
     id being recipe id
 """
@@ -165,20 +163,12 @@ def getRecipes():
     """This gets the recipies"""
     cuisine = request.args.get('cuisine')
     #data = json.loads(request.data.decode())
-<<<<<<< HEAD
-    #return getRecipesbyCuisine(data['cuisine'],data['recipe_limit'])
-    
-    
-def getRecipesbyCuisine(cuisine:str,recipe_limit:int):
-    returnval= db.getRecipesbyCuisine(cuisine,recipe_limit)
-=======
     return getRecipesbyCuisine(data['cuisine'], data['recipe_limit'])
 
 
 def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
     """This gets the recipies based on the cuisine they picked"""
     returnval = db.getRecipesbyCuisine(cuisine, recipe_limit)
->>>>>>> 1b8f1c52e768247462c9a1e22ae75058cdcf82b2
     print(returnval)
     return returnval
 
