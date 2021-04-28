@@ -46,9 +46,8 @@ const Recipe: React.FunctionComponent = () => {
               {
                 recipe.ingredients.map((ingredient,index)=>{
                   return( 
-                  <div className="ingredient_recipe">
-                      <div className="ingredient_name_recipe">{ingredient['name']}</div>
-                      <div className="ingredient_amount_recipe">{ingredient['amount']}</div>
+                  <div className="ingredient_entry">
+                      {ingredient['amount']} of {ingredient['name']}
                   </div>
                   )
                 })
