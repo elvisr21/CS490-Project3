@@ -3,6 +3,11 @@ import './CreateRecipe.css';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
+window.onload=()=>{
+  const instructionWarning=document.getElementById("instructionWarning");
+  const ingredientWarning=document.getElementById("instructionWarning");
+}
+
 const CreateRecipeForm: React.FunctionComponent = (props) => {
   const FormItem = ({ type, message, value, control }) => (
     <div className="FormItem">
@@ -101,6 +106,7 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
         <button type="button" onClick={addIngredient}>
           Add Ingredient
         </button>
+        <div id="ingredientWarning"></div>
         <div className="IngredientItems" id="IngredientItems" />
       </div>
     );
@@ -128,11 +134,12 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
       <div className="Instructions">
         <label htmlFor="Instructions">
           Instructions: <input type="text" id="instruction" placeholder="test" /> <br />
-        </label>{' '}
+        </label>
         <br />
         <button type="button" onClick={addInstructions}>
           Add Instruction
         </button>
+        <div id="instructionWarning"></div>
         <div className="InstructionItems" id="InstructionItems" />
       </div>
     );
@@ -189,7 +196,10 @@ const CreateRecipe: React.FunctionComponent = ({ id }) => {
     if (ingredients.length>0 && instructions.length>0){
         axios.post('/AddRecipe', data);
     }
-    
+    else{
+      instructionWarning.innerHTML="Atleast one Instruction needed";
+      ingredientWarning.innerHTML="Atleast one Ingredient needed"
+    }
   };
   return (
     <div className="CreateRecipe">
