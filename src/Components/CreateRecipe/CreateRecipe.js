@@ -66,6 +66,10 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
           return;
         }
       }
+      if (ingredientWarning.innerHTML!=""){
+        ingredientWarning.innerHTML=""
+      }
+
       const amount = document.getElementById('ingredient_amount');
       const container = document.getElementById('IngredientItems');
       const div = document.createElement('div');
@@ -114,6 +118,11 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
   const Instructions: React.FunctionComponent = () => {
     const addInstructions = (e) => {
       e.preventDefault();
+      if (instructionWarning.innerHTML!=""){
+        instructionWarning.innerHTML=""
+      }
+      
+      
       const instruction = document.getElementById('instruction');
       const container = document.getElementById('InstructionItems');
       const div = document.createElement('div');
