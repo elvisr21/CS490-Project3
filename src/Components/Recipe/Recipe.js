@@ -29,6 +29,7 @@ const Recipe: React.FunctionComponent = () => {
         });
       });
   }, []);
+  console.log(recipe)
   return (
     <>
       {recipe !== undefined && (
@@ -40,11 +41,24 @@ const Recipe: React.FunctionComponent = () => {
           <div className="Cuisine">Cuisine: {recipe.cuisine}</div>
 
           <div className="Description">Description: {recipe.description}</div>
-          <div className="Instructions">
+          <div className="ingredients_recipe">
+              Ingredients: <br/>
+              {
+                recipe.ingredients.map((ingredient,index)=>{
+                  return( 
+                  <div className="ingredient_recipe">
+                      <div className="ingredient_name_recipe">{ingredient['name']}</div>
+                      <div className="ingredient_amount_recipe">{ingredient['amount']}</div>
+                  </div>
+                  )
+                })
+              }
+          </div>
+          <div className="instructions_recipe">
             Instructions: <br />
             {recipe.instructions.map((instruction, index) => (
-              <div className="instruction">
-                {index + 1}. {instruction}{' '}
+              <div className="instruction_recipe">
+                {index + 1}. {instruction}
               </div>
             ))}
           </div>
