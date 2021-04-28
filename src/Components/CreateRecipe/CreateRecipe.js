@@ -108,7 +108,7 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
   const Instructions: React.FunctionComponent = () => {
     const addInstructions = (e) => {
       e.preventDefault();
-      const instruction = document.getElementById('ingredient_name');
+      const instruction = document.getElementById('instruction');
       const container = document.getElementById('InstructionItems');
       const div = document.createElement('div');
       div.classList.add('Instruction');
