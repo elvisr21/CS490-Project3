@@ -12,6 +12,10 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
           <input type={type} placeholder={value} id={control} />
         </label>
       )}
+      
+      {type ==="submit" &&
+        <input type={type} placeholder={value} id={control} />
+      }
     </div>
   );
   FormItem.propTypes = {
