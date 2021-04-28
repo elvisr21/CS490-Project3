@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export function useForm(callback, validate) {
+export function useForm(callback, validate, setSigned) {
   const [account, setAccount] = useState({
     // to register
     username: '',
@@ -11,21 +11,13 @@ export function useForm(callback, validate) {
   });
 
   // Login
-  const [login, setLogin] = useState({
-    // to login previous users
+  const [login, setUserLogin] = useState({
     username: '',
     password: '',
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [userId, setUserId] = useState();
-
-  function isSubmittingTrue() {
-    setIsSubmitting((prevShown) => {
-      return !prevShown;
-    });
-  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +26,7 @@ export function useForm(callback, validate) {
       [name]: value,
     });
     // login
-    setLogin({
+    setUserLogin({
       ...login,
       [name]: value,
     });
@@ -43,28 +35,10 @@ export function useForm(callback, validate) {
   const handleSubmit = (e) => {
     e.preventDefault();
     //let returnvalue = 0;
-
     console.log(account);
     setErrors(validate(account));
-    isSubmittingTrue();
-    console.log(isSubmitting);
-    //const temp = {...errors};
-
-    // console.log(Object.keys(validate(account)).length);
-
-    // if(Object.keys(validate(account)).length === 0){ // if there are no validation errors
-    //   //console.log(errors);
-
-    //   callback();
-    //   console.log(isSubmitting);
-    // }
-
-    // if(returnvalue !== 1){
-    //   setErrors(validate(account));
-    //   setIsSubmitting(true);
-    //   console.log("here");
-    //   console.log(isSubmitting);
-    // }
+    setIsSubmitting(true);
+    //console.log(isSubmitting);
   };
 
   const handleSubmitLogin = (e) => {
@@ -72,22 +46,22 @@ export function useForm(callback, validate) {
 
     setErrors(validate(login));
     setIsSubmitting(true);
-
+    //console.log(Object.keys(errors).length);
     axios.post('/login', login).then((response) => {
-      //console.log(response['config']['data']['username']);
-      setUserId(response['data']['id']); // currently not passing the userId to parent
-      //console.log(response['data']['id']); // use this to pass to pass username (unique) for the main web page after checking login status
+      console.log(response);
+      setSigned({isUser: true, id: response['data']['id']}); // sets the unique user id, and login status for app.js
     });
   };
-  console.log(userId);
+  
   useEffect(() => {
     console.log(Object.keys(errors).length);
+    //console.log(errors);
     if (Object.keys(errors).length === 0 && isSubmitting) {
       callback();
     }
   }, [errors]);
 
-  return { handleChange, handleSubmit, handleSubmitLogin, userId, account, login, errors };
+  return { handleChange, handleSubmit, handleSubmitLogin, account, login, errors };
 }
 
 export default useForm;
