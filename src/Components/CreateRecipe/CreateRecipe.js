@@ -36,10 +36,10 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
         <label htmlFor="select">{message}</label>
         <select id="select">
           <OptionItemItem value="chinese" item="Chinese" />
-          <OptionItemItem value="chinese" item="Japanese" />
-          <OptionItemItem value="chinese" item="Italian" />
-          <OptionItemItem value="chinese" item="American" />
-          <OptionItemItem value="chinese" item="Australian" />
+          <OptionItemItem value="japanese" item="Japanese" />
+          <OptionItemItem value="italian" item="Italian" />
+          <OptionItemItem value="american" item="American" />
+          <OptionItemItem value="australian" item="Australian" />
         </select>
       </div>
     );
@@ -173,7 +173,7 @@ const CreateRecipe: React.FunctionComponent = ({ id }) => {
       Ingredients: [],
       Instructions: [],
     };
-
+    console.log(data)
     ingredients.forEach((ingredient, index) => {
       const name = ingredient.children[0].value;
       const amount = ingredient.children[1].value;
