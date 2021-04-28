@@ -186,11 +186,13 @@ const CreateRecipe: React.FunctionComponent = ({ id }) => {
       const name = ingredient.children[0].value;
       data.Instructions[index] = name;
     });
-    axios.post('/AddRecipe', data);
+    if (ingredients.length>0 && instructions.length>0){
+        axios.post('/AddRecipe', data);
+    }
+    
   };
   return (
     <div className="CreateRecipe">
-      user: {id}
       <CreateRecipeForm func={sendRecipe} />
     </div>
   );
