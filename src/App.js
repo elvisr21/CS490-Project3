@@ -16,7 +16,7 @@ function App(): React.FunctionComponent {
     isUser: false,
     id: -1,
   }); // used to store the logged in user's unique id and to check if user logged in successfully
-  
+  console.log(User.id);
   return (
     <Router>
       <TopbarComponent id={User.id} />

@@ -174,14 +174,39 @@ class Database:
         self.db.session.commit()
 
     #changes comment info
-    def changeComment(self, comment_id, newComment):
+    def changeComment(self,comment_id,newComment):
         """This will change the comment"""
-        entry = self.Comment_Table.query.filter_by(id=comment_id).first()
-        if entry.comment != newComment:
-            entry.comment = newComment
-        self.db.session.commit()
+        entry=self.Comment_Table.query.filter_by(id=comment_id).first()
+        if entry.comment!=newComment:
+            entry.comment=newComment 
+        self.db.session.commit()   
+        
+        
+    def getRecipes(self):
+        """This will get recipes"""
+        que=self.Recipe_Table.query.all()
+        print("que: ")
+        print(que)
+        ret = []
+        if len(que):
+            for i in range(len(que)):
+                ret.append({
+                    "id": que[i].id,
+                    "name": que[i].name,
+                    "creator_id":que[i].creator_id,
+                    "creator_name":self.User_Table.query.filter_by(id=que[i].creator_id).first().name,
+                })
+        else:
+            ret = [{
+                "id": 0,
+                "name": "No",
+                "creator_id": 0,
+                "creator_name": "recipes"
+                
+            }]
+        return {"returning": ret}
 
-    def getRecipesbyCuisine(self, cuisine: str, recipe_limit: int):
+    def getRecipesbyCuisine(self,cuisine:str,recipe_limit:int):
         """This wil get the recipe by its cuisine"""
         print()
         que = self.Recipe_Table.query.filter(

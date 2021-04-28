@@ -10,7 +10,8 @@ import CreateRecipe from './CreateRecipe/CreateRecipe';
 import { useState } from 'react';
 
 export const TopbarComponent: React.FunctionComponent = (props) => {
-  return <Topbar/>;
+  const { id } = props;
+  return <Topbar id={id} />;
 };
 TopbarComponent.propTypes = {
   id: PropTypes.number.isRequired,
