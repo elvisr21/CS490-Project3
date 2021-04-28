@@ -35,11 +35,11 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
       <div className="OptionItem">
         <label htmlFor="select">{message}</label>
         <select id="select">
-          <OptionItemItem value="chinese" item="Chinese" />
-          <OptionItemItem value="japanese" item="Japanese" />
-          <OptionItemItem value="italian" item="Italian" />
-          <OptionItemItem value="american" item="American" />
-          <OptionItemItem value="australian" item="Australian" />
+          <OptionItemItem value="Chinese" item="Chinese" />
+          <OptionItemItem value="Japanese" item="Japanese" />
+          <OptionItemItem value="Italian" item="Italian" />
+          <OptionItemItem value="American" item="American" />
+          <OptionItemItem value="Australian" item="Australian" />
         </select>
       </div>
     );
