@@ -29,7 +29,7 @@ function App(): React.FunctionComponent {
         />
         <Route path="/favorite" exact component={FavoriteComponent} />
         <Route path="/recipe/:RecipeID" exact component={RecipeComponent} />
-        <Route path="/user/:UserID" exact component={UserComponent} />
+        <Route path="/profile/:UserID" exact component={UserComponent} />
         <Route
           path="/createRecipe"
           exact
