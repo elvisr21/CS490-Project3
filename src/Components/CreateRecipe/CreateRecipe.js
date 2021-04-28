@@ -9,7 +9,7 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
       {type !== 'submit' && (
         <label htmlFor={control}>
           {message}
-          <input type={type} placeholder={value} id={control} />
+          <input type={type} placeholder={value} id={control} required/>
         </label>
       )}
       
