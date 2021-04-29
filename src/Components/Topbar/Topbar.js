@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-export const Topbar = ({id}) => {
-  const [logged, setLogged] = useState(false);
-  console.log(id)
+export const Topbar = ({ id }) => {
+  //const [logged, setLogged] = useState(false);
+  console.log(id);
   return (
     <div style={{ 'background-color': '#b3937f' }}>
       {id != -1  ? (

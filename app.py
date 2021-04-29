@@ -134,16 +134,23 @@ def addRecipe():
        params: {
             id: id
         }
-
     }
     id being recipe id
 """
 
 
+@app.route("/GetUserName", methods=["GET"])
+def getUserName():
+    """This gets username and ID"""
+    users = db.getUsers()
+    print (users)
+    return users
+    
 @app.route('/GetRecipes',methods=["GET"])
 def getRecipes():
     """This gets the recipies"""
     ret = db.getRecipes()
+    print("ret")
     print(ret)
     return ret
 
@@ -159,7 +166,6 @@ def getRecipeByID():
     """This will get the recipe with its id in the table"""
     Recipe_ID = request.args.get('id')
     return db.getRecipesById(Recipe_ID)
-    
 
 def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
     """This gets the recipies based on the cuisine they picked"""

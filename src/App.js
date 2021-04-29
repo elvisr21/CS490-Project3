@@ -15,7 +15,8 @@ function App(): React.FunctionComponent {
   const [User, setSigned] = useState({
     isUser: false,
     id: -1,
-  });
+  }); // used to store the logged in user's unique id and to check if user logged in successfully
+  console.log(User.id);
   return (
     <Router>
       <TopbarComponent id={User.id} />
@@ -24,11 +25,11 @@ function App(): React.FunctionComponent {
         <Route
           path="/signRegister"
           exact
-          component={() => <SignRegisterComponent func={setSigned} />}
+          component={() => <SignRegisterComponent setSigned={setSigned} />}
         />
         <Route path="/favorite" exact component={FavoriteComponent} />
         <Route path="/recipe/:RecipeID" exact component={RecipeComponent} />
-        <Route path="/user/:UserID" exact component={UserComponent} />
+        <Route path="/profile/:UserID" exact component={UserComponent} />
         <Route
           path="/createRecipe"
           exact

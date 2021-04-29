@@ -7,6 +7,7 @@ import { Favorite } from './Favorite/Favorite';
 import Recipe from './Recipe/Recipe';
 import { User } from './User/User';
 import CreateRecipe from './CreateRecipe/CreateRecipe';
+import { useState } from 'react';
 
 export const TopbarComponent: React.FunctionComponent = (props) => {
   const { id } = props;
@@ -15,7 +16,10 @@ export const TopbarComponent: React.FunctionComponent = (props) => {
 TopbarComponent.propTypes = {
   id: PropTypes.number.isRequired,
 };
-export const SignRegisterComponent: React.FunctionComponent = () => <Form />;
+export const SignRegisterComponent: React.FunctionComponent = (props) => {
+  return <Form setSigned={props.setSigned} />;
+};
+  
 export const MainComponent: React.FunctionComponent = () => <Main />;
 export const FavoriteComponent: React.FunctionComponent = () => <Favorite />;
 export const RecipeComponent: React.FunctionComponent = () => <Recipe />;
