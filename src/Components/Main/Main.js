@@ -11,7 +11,7 @@ export const Main=()=>{
         axios.get("/GetRecipes").then(res=>{
               console.log(res)
               const data = res.data.returning
-              console.log(data)
+              console.log("Data",data)
               setRecipes(data)
               console.log("Recipes: ",recipes)
             

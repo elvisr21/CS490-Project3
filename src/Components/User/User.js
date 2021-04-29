@@ -10,12 +10,12 @@ export const User = () => {
   const [users,setUsers]=useState(undefined)
   
       useEffect(()=>{
-        axios.get("/GetUserName").then(res=>{
+        axios.get("/GetRecipes").then(res=>{ 
               console.log(res)
               const data = res.data.returning
-              console.log(data)
+              console.log("Data: ",data)
               setUsers(data)
-              console.log(users)
+              console.log("Users: ",users)
             
         })
         
@@ -35,7 +35,14 @@ export const User = () => {
                 </tr>
               </thead>
               <tbody>
-
+                {users.map((user, index) => (
+                  <tr key={index}>
+                  {user.creator_id == id ?
+                    <td><Link to= {"/recipe/"+user["id"]}>{user.name}</Link></td>
+                  :null
+                  }
+                  </tr>
+                ))}
               </tbody>
             </table>
           }
