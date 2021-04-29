@@ -26,7 +26,6 @@ export const User = () => {
   
   return (
     <div>
-    <h1> UserId={id}</h1>
           { (users!=undefined) &&
             <table>
               <thead>
