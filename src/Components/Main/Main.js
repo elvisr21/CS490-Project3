@@ -13,7 +13,7 @@ export const Main=()=>{
               const data = res.data.returning
               console.log(data)
               setRecipes(data)
-              console.log(recipes)
+              console.log("Recipes: ",recipes)
             
         })
         
