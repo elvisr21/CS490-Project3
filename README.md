@@ -1,9 +1,10 @@
-# Flask and create-react-app
+https://cs490-project3.herokuapp.com
 
 ## Requirements
 
 1. `npm install`
 2. `pip install -r requirements.txt`
+3. `npm install axios`
 
 ## Setup
 

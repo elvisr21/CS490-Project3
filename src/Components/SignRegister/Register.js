@@ -4,16 +4,18 @@ import validate from './FormValidation';
 import useForm from './useForm';
 import './Form.css';
 
-const Register = ({ submitForm }) => {
+const Register = ({ submitForm, setSigned }) => {
   const [loginLink, setLoginLink] = useState(false);
-  const { handleChange, handleSubmit, handleSubmitLogin, userId, account, login, errors } = useForm(
+  const { handleChange, handleSubmit, handleSubmitLogin, account, login, errors } = useForm(
     submitForm,
     validate,
+    setSigned
   );
-
+  
   function clicked() {
     setLoginLink(true);
   }
+  //console.log(setLogin);
 
   //console.log ("Login Link: ", loginLink)
   return (

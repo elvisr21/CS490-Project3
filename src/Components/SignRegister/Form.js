@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './Form.css';
 import Register from './Register';
-import FormSuccess from './FormSuccess';
+//import FormSuccess from './FormSuccess';
+import { Link } from "react-router-dom";
+import { Main } from '../Main/Main';
 
 const Form = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -9,20 +11,21 @@ const Form = (props) => {
   function submitForm() {
     setIsSubmitted(true);
   }
-
+  //console.log("form.js", props.setLogin);
   return (
     <>
       <div className="form-container">
-        <a className="close-btn" href="/">
-          x
-        </a>
+        <Link className="close-btn" to='/'>x</Link>
+        
         <div className="form-content-left">
           <img className="form-img" src="images/register-logo.jpg" alt="register-logo" />
         </div>
-        {!isSubmitted ? <Register func={props.func} submitForm={submitForm} /> : <FormSuccess />}
+        {!isSubmitted ? <Register setSigned={props.setSigned} submitForm={submitForm} /> : <Link to='/'></Link>}
       </div>
     </>
   );
 };
-
+// <a className="close-btn" href="/">
+//           x
+//         </a>
 export default Form;
