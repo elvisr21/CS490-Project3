@@ -2,7 +2,8 @@
   color: white;
   border-top: 2px solid #ff8533;
   border-bottom: 2px solid #ff8533;
-  display: inline-block;
+  display: block;
+  position: relative;
   float: right;
   text-align: right;
   justify-content: space-between;
@@ -17,7 +18,10 @@
   margin-right: 5px;
   left: 10px;
 }
-
+.navig p {
+  color: white;
+  padding: 0px 8px 0px 8px;
+}
 .navig a {
   color: white;
   padding: 0px 8px 0px 8px;
