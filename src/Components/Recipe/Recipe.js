@@ -61,27 +61,9 @@ const Recipe: React.FunctionComponent = ({ userId }) => {
   };
   return (
     <body style={{ 'background': 'linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%)' }}>
-<<<<<<< HEAD
-      <div>aaaaaaaaa</div>
-=======
       {recipe !== undefined && (
         <div className="recipe">
           <img src={recipe.img} alt="Recipe_Image" />
-<<<<<<< HEAD
-          <div className="Recipe_Name">Name: {recipe.name}</div>
-          <div className="Creator">Creator: {recipe.creator_name}</div>
-          <div className="Creator_id">Creator_id: {recipe.creator_id}</div>
-          <div className="Cuisine">Cuisine: {recipe.cuisine}</div>
-
-          <div className="Description">Description: {recipe.description}</div>
-          <div className="ingredients_recipe">
-            Ingredients: <br />
-            {recipe.ingredients.map((ingredient) => (
-              <div className="ingredient_entry">
-                {ingredient.amount} of {ingredient.name}
-              </div>
-            ))}
-=======
             <div id="content" className="Recipe_Name">Name: {recipe.name}</div>
             <div id="content" className="Creator">Creator: {recipe.creator_name}</div>
             <div id="content" className="Creator_id">Creator_id: {recipe.creator_id}</div>
@@ -98,7 +80,6 @@ const Recipe: React.FunctionComponent = ({ userId }) => {
                   )
                 })
               }
->>>>>>> 3ffac0657f89e25e30fc0e34cb3f3ab171d29488
           </div>
           <div id="heads" className="instructions_recipe">
             Instructions: <br />
@@ -137,7 +118,6 @@ const Recipe: React.FunctionComponent = ({ userId }) => {
           </div>
         </div>
       )}
->>>>>>> 14f86ccb88299056b74eb1714dc09ecc7c24747e
     </body>
   );
 };

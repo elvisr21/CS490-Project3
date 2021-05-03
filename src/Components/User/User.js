@@ -4,14 +4,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const User = () => {
-<<<<<<< HEAD
-
-  return (
-    <body id="back">
-          <div>fsdfsda</div>
-          <div id='bot'> bottom text </div>
-    </body>
-=======
   const [users, setUsers] = useState(undefined);
 
   useEffect(() => {
@@ -28,33 +20,7 @@ export const User = () => {
   console.log('id: ', id);
 
   return (
-<<<<<<< HEAD
-    <div>
-      {users != undefined && (
-        <table>
-          <thead>
-            <tr>
-              <th>Your Recipes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={index}>
-                {user.creator_id == id ? (
-                  <td>
-                    <Link to={`/recipe/${user.id}`}>{user.name}</Link>
-                  </td>
-                ) : null}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-  );
-};
-=======
-    <body style={{ background: 'linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%)' }}>
+    <body id="back">
           { (users!=undefined) &&
             <div>
               <table class="styled-table">
@@ -77,7 +43,5 @@ export const User = () => {
             </div>
           }
         </body>
->>>>>>> 14f86ccb88299056b74eb1714dc09ecc7c24747e
     )
 }
->>>>>>> 3ffac0657f89e25e30fc0e34cb3f3ab171d29488
