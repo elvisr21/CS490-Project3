@@ -23,26 +23,28 @@ export const User = () => {
   console.log('id: ', id);
   
   return (
-    <div>
+    <body style={{ background: 'linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%)' }}>
           { (users!=undefined) &&
-            <table>
-              <thead>
-                <tr>
-                  <th>Your Recipes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user, index) => (
-                  <tr key={index}>
-                  {user.creator_id == id ?
-                    <td><Link to= {"/recipe/"+user["id"]}>{user.name}</Link></td>
-                  :null
-                  }
+            <div>
+              <table class="styled-table">
+                <thead>
+                  <tr>
+                    <th>Your Recipes</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {users.map((user, index) => (
+                    <tr class="active-row" key={index}>
+                    {user.creator_id == id ?
+                      <td><Link style={{ textDecoration: 'none', color: 'black' }} to= {"/recipe/"+user["id"]}>{user.name}</Link></td>
+                    :null
+                    }
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           }
-        </div>
+        </body>
     )
-};
+}
