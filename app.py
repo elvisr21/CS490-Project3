@@ -90,6 +90,8 @@ def loginUser(username, password):
         
     }
 """
+
+
 @app.route("/AddRecipe", methods=["POST"])
 def addRecipe():
     """This lets a user add a recipe"""
@@ -103,17 +105,15 @@ def addRecipe():
                            instructions=json.dumps(data['Instructions']))
 
 
-
-
-
 @app.route("/GetUserName", methods=["GET"])
 def getUserName():
     """This gets username and ID"""
     users = db.getUsers()
-    print (users)
+    print(users)
     return users
-    
-@app.route('/GetRecipes',methods=["GET"])
+
+
+@app.route('/GetRecipes', methods=["GET"])
 def getRecipes():
     """This gets the recipies"""
     ret = db.getRecipes()
@@ -121,12 +121,14 @@ def getRecipes():
     print(ret)
     return ret
 
-@app.route('/GetRecipesbyCuisine',methods=["GET"])
+
+@app.route('/GetRecipesbyCuisine', methods=["GET"])
 def getCuisineRecipes():
     """gets recipes by cuisine"""
-    cuisine=request.args.get('cuisine')
+    cuisine = request.args.get('cuisine')
     #data = json.loads(request.data.decode())
     return getRecipesbyCuisine(data['cuisine'], data['recipe_limit'])
+
 
 """
     endpoint for getting recipies for id for recipe page
@@ -138,12 +140,15 @@ def getCuisineRecipes():
         }
     }
     id being recipe id
-"""   
+"""
+
+
 @app.route('/getRecipebyId', methods=["GET"])
 def getRecipeByID():
     """This will get the recipe with its id in the table"""
     Recipe_ID = request.args.get('id')
     return db.getRecipesById(Recipe_ID)
+
 
 def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
     """This gets the recipies based on the cuisine they picked"""
@@ -154,16 +159,21 @@ def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
 
 @app.route('/addComment', methods=["POST"])
 def addcomment():
+    """ Insert new comments into the database"""
     data = json.loads(request.data.decode())
-    db.insertComment(creator_id=data['id'],comment=data['comment'],recipe_id=data["recipe_id"])
-    return {"code":0}
-    
+    db.insertComment(creator_id=data['id'],
+                     comment=data['comment'],
+                     recipe_id=data["recipe_id"])
+    return {"code": 0}
+
+
 @app.route('/deleteComment', methods=["POST"])
 def removeComment():
+    """ Deletes comments from the database """
     data = json.loads(request.data.decode())
     print(data)
     db.deleteComment(comment_id=data['comment'])
-    return {"code":0}
+    return {"code": 0}
 
 
 #id 1

@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc, exc, asc
 from flask import json
 
+
 class Database:
     """This is the database class"""
     def __init__(self, app):
@@ -68,14 +69,23 @@ class Database:
                         self.recipe_id) + ' >'
 
         self.Comment_Table = Comments
-        
+
         class Favorite(self.db.Model):
+            """ Favorite recipe table"""
             id = self.db.Column(self.db.Integer, primary_key=True)
-            creator_id=self.db.Column(self.db.Integer,self.db.ForeignKey('user.id'), nullable=False)
-            recipe_id=self.db.Column(self.db.Integer,self.db.ForeignKey('recipe.id'), nullable=False)
+            creator_id = self.db.Column(self.db.Integer,
+                                        self.db.ForeignKey('user.id'),
+                                        nullable=False)
+            recipe_id = self.db.Column(self.db.Integer,
+                                       self.db.ForeignKey('recipe.id'),
+                                       nullable=False)
+
             def __repr__(self):
-                return '<Favorite creator_id='+str(self.creator_id)+" recipe_id="+str(self.recipe_id)+" >"
-        self.Favorite_Table=Favorite
+                return '<Favorite creator_id=' + str(
+                    self.creator_id) + " recipe_id=" + str(
+                        self.recipe_id) + " >"
+
+        self.Favorite_Table = Favorite
         self.db.create_all()
 
     #inserts user and returns a user id
@@ -105,7 +115,8 @@ class Database:
         return ({"code": 1, "id": exist.id})
 
     #inserts recipe to database
-    def insertRecipe(self, name: str, creator_id: int, description: str,ingredients: str, cuisine: str, img, instructions):
+    def insertRecipe(self, name: str, creator_id: int, description: str,
+                     ingredients: str, cuisine: str, img, instructions):
         """This will insert a new recipe"""
         entry = self.Recipe_Table(name=name,
                                   creator_id=creator_id,
@@ -147,7 +158,7 @@ class Database:
                     "name": comments[i][1],
                     "comment": comments[i][0].comment,
                     "id": comments[i][2],
-                    "comment_id":comments[i][0].id
+                    "comment_id": comments[i][0].id
                 }
                 for i in range(len(comments))
             }
@@ -182,27 +193,31 @@ class Database:
         self.db.session.commit()
 
     #changes comment info
-    def changeComment(self,comment_id,newComment):
+    def changeComment(self, comment_id, newComment):
         """This will change the comment"""
-        entry=self.Comment_Table.query.filter_by(id=comment_id).first()
-        if entry.comment!=newComment:
-            entry.comment=newComment 
-        self.db.session.commit()   
-        
-        
+        entry = self.Comment_Table.query.filter_by(id=comment_id).first()
+        if entry.comment != newComment:
+            entry.comment = newComment
+        self.db.session.commit()
+
     def getRecipes(self):
         """This will get recipes"""
-        que=self.Recipe_Table.query.all()
+        que = self.Recipe_Table.query.all()
         print("que: ")
         print(que)
         ret = []
         if len(que):
             for i in range(len(que)):
                 ret.append({
-                    "id": que[i].id,
-                    "name": que[i].name,
-                    "creator_id":que[i].creator_id,
-                    "creator_name":self.User_Table.query.filter_by(id=que[i].creator_id).first().name,
+                    "id":
+                    que[i].id,
+                    "name":
+                    que[i].name,
+                    "creator_id":
+                    que[i].creator_id,
+                    "creator_name":
+                    self.User_Table.query.filter_by(
+                        id=que[i].creator_id).first().name,
                 })
         else:
             ret = [{
@@ -210,11 +225,10 @@ class Database:
                 "name": "No",
                 "creator_id": 0,
                 "creator_name": "recipes"
-                
             }]
         return {"returning": ret}
 
-    def getRecipesbyCuisine(self,cuisine:str,recipe_limit:int):
+    def getRecipesbyCuisine(self, cuisine: str, recipe_limit: int):
         """This wil get the recipe by its cuisine"""
         print()
         que = self.Recipe_Table.query.filter(
