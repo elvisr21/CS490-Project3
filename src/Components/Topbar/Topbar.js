@@ -10,7 +10,8 @@ export const Topbar = ({ id }) => {
     <div style={{ 'background': 'linear-gradient(90deg, rgb(39, 176, 255) 0%, rgb(0, 232, 236) 100%)' }}>
       {id != -1  ? (
         <p className="navig">
-          <p>Welcome!</p>
+                  <p>Welcome!</p>
+
           <Link to="/">Home</Link>
           <Link to={"/profile/"+id}>View Profile</Link>
           <Link to="/createRecipe">New Recipe</Link>
@@ -22,7 +23,7 @@ export const Topbar = ({ id }) => {
         </p>
       )}
       <h2 id="logo">
-        <i>Chef Masters</i>
+        <div id="child"><i>Chef Masters</i></div>
       </h2>
     </div>
   );

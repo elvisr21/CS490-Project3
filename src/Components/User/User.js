@@ -25,11 +25,25 @@ export const User = () => {
   return (
     <body style={{ background: 'linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%)' }}>
           { (users!=undefined) &&
+<<<<<<< HEAD
             <div>
               <table class="styled-table">
                 <thead>
                   <tr>
                     <th>Your Recipes</th>
+=======
+            <table>
+              <thead>
+                  <td>Your Recipes</td>
+              </thead>
+              <tbody>
+                {users.map((user, index) => (
+                  <tr key={index}>
+                  {user.creator_id == id ?
+                    <td><Link to= {"/recipe/"+user["id"]}>{user.name}</Link></td>
+                  :null
+                  }
+>>>>>>> 8bac8e93df18191ed7d2b8cb46d3a3a3babf0d50
                   </tr>
                 </thead>
                 <tbody>
