@@ -20,7 +20,7 @@ node_modules
 sql.env
 .env
 
-__pycache__
+__pycache__/
 
 
 
