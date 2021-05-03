@@ -2,13 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './recipe.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
-const Recipe: React.FunctionComponent = () => {
+window.onload=()=>{
+  var comment = document.getElementById("comment");
+  var commentSection = document.getElementById("Comment_section");
+}
+
+
+const Recipe: React.FunctionComponent = (props) => {
   const [recipe, setRecipe] = useState(undefined);
   const id = useParams().RecipeID;
+  const userId=props.id
   // const RecipeId= props.params.RecipeID;
-  useEffect(() => {
-    axios
+  const getRecipe=()=>{
+      axios
       .get('/getRecipebyId', {
         params: {
           id,
@@ -28,8 +36,36 @@ const Recipe: React.FunctionComponent = () => {
           instructions: data.instructions,
         });
       });
+  }
+  useEffect(() => {
+    getRecipe()
   }, []);
   console.log(recipe)
+  const addComment=(e)=>{
+    e.preventDefault();
+    if (userId!=-1 && comment.value!=""){
+        const data={
+          "comment":comment.value,
+          "id":userId,
+          "recipe_id":id
+        }
+        axios.post('/addComment',data).then(res=>{
+          const div= document.createElement('div')
+          div.classList.add('Comment');
+          
+          
+          getRecipe()
+        })
+    }
+  }
+  const deleteComment=(id)=>{
+    console.log(id)
+    axios.post('/deleteComment',{'id':id}).then(res=>{
+      
+      
+      getRecipe()
+    })
+  }
   return (
     <>
       {recipe !== undefined && (
@@ -62,16 +98,20 @@ const Recipe: React.FunctionComponent = () => {
             ))}
           </div>
           <br />
-          <div className="Comments">
-            Comments:
+          <div className="Comments" id="Comment_section">
+            Comments: <br/>
+            
+            <input type="text"  id="comment" require/>
+            <button type="button" onClick={addComment}>Add Comment </button>
             {Object.entries(recipe.comments).map((comment) => (
               <div className="Comment">
-                <div className="Comment_Creator">creator={comment[1].name}</div>
-                <div className="creator_id">creator_id={comment[1].id}</div>
-                <div className="Comment">comment={comment[1].comment}</div>
+                <Link to={"/profile/" + comment[1].id} className="Comment_Creator">{comment[1].name}</Link>
+                <div className="Comment">{comment[1].comment}</div>
+                {(comment[1].id==userId) && <div onClick={()=> deleteComment(comment[1].comment_id)}>x</div> }
                 <br />
               </div>
             ))}
+            
           </div>
         </div>
       )}

@@ -28,7 +28,7 @@ function App(): React.FunctionComponent {
           component={() => <SignRegisterComponent setSigned={setSigned} />}
         />
         <Route path="/favorite" exact component={FavoriteComponent} />
-        <Route path="/recipe/:RecipeID" exact component={RecipeComponent} />
+        <Route path="/recipe/:RecipeID" exact component={()=> <RecipeComponent id={User.id}/>} />
         <Route path="/profile/:UserID" exact component={UserComponent} />
         <Route
           path="/createRecipe"
