@@ -33,3 +33,8 @@
     font-weight: bold;
     color: #009879;
 }
+#back{
+    width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%);
+}

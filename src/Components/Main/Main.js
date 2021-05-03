@@ -1,25 +1,23 @@
-import './main.css'
-import {  useParams } from 'react-router-dom'
-import axios from 'axios'
-import { Link } from 'react-router-dom';
-import {useState,useEffect} from 'react'
+import './main.css';
+import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
 
-export const Main=()=>{
-    const [recipes,setRecipes]=useState(undefined)
-    
-    useEffect(()=>{
-        axios.get("/GetRecipes").then(res=>{
-              console.log(res)
-              const data = res.data.returning
-              console.log("Data",data)
-              setRecipes(data)
-              console.log("Recipes: ",recipes)
-            
-        })
-        
-    },[])
-    const recipenav = "/recipe/"
-    return(
+import { useState, useEffect } from 'react';
+
+export const Main = () => {
+  const [recipes, setRecipes] = useState(undefined);
+
+  useEffect(() => {
+    axios.get('/GetRecipes').then((res) => {
+      console.log(res);
+      const data = res.data.returning;
+      console.log('Data', data);
+      setRecipes(data);
+      console.log('Recipes: ', recipes);
+    });
+  }, []);
+  const recipenav = '/recipe/';
+  return (
         <div>
           { (recipes!=undefined) &&
           <div style={{ 'background': 'linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%)' }}>
@@ -37,4 +35,4 @@ export const Main=()=>{
           }
         </div>
     )
-}
+};

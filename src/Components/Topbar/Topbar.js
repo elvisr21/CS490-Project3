@@ -29,8 +29,8 @@ export const Topbar = ({ id }) => {
   );
 };
 Topbar.propTypes = {
-  id: PropTypes.number
+  id: PropTypes.number,
 };
 Topbar.defaultProps = {
-  id: -1
+  id: -1,
 };
