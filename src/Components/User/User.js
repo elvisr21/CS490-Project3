@@ -29,9 +29,7 @@ export const User = () => {
           { (users!=undefined) &&
             <table>
               <thead>
-                <tr>
-                  <th>Your Recipes</th>
-                </tr>
+                  <td>Your Recipes</td>
               </thead>
               <tbody>
                 {users.map((user, index) => (
