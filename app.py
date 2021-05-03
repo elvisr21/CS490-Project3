@@ -174,6 +174,19 @@ def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
     return returnval
 
 
+@app.route('/addComment', methods=["POST"])
+def addcomment():
+    data = json.loads(request.data.decode())
+    db.insertComment(creator_id=data['id'],comment=data['comment'],recipe_id=data["recipe_id"])
+    return {"code":0}
+    
+@app.route('/deleteComment', methods=["POST"])
+def removeComment():
+    data = json.loads(request.data.decode())
+    db.deleteComment(comment_id=data['id'])
+    return {"code":0}
+
+
 #id 1
 #print(registerUser("taco","taco","taco"))
 #print(loginUser("taco4","taco"))

@@ -97,8 +97,7 @@ class Database:
         return ({"code": 1, "id": exist.id})
 
     #inserts recipe to database
-    def insertRecipe(self, name: str, creator_id: int, description: str,
-                     ingredients: str, cuisine: str, img, instructions):
+    def insertRecipe(self, name: str, creator_id: int, description: str,ingredients: str, cuisine: str, img, instructions):
         """This will insert a new recipe"""
         entry = self.Recipe_Table(name=name,
                                   creator_id=creator_id,
@@ -139,7 +138,8 @@ class Database:
                 i: {
                     "name": comments[i][1],
                     "comment": comments[i][0].comment,
-                    "id": comments[i][2]
+                    "id": comments[i][2],
+                    "comment_id":comments[i][0].id
                 }
                 for i in range(len(comments))
             }

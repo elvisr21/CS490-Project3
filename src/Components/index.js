@@ -22,7 +22,7 @@ export const SignRegisterComponent: React.FunctionComponent = (props) => {
   
 export const MainComponent: React.FunctionComponent = () => <Main />;
 export const FavoriteComponent: React.FunctionComponent = () => <Favorite />;
-export const RecipeComponent: React.FunctionComponent = () => <Recipe />;
+export const RecipeComponent: React.FunctionComponent = ({id}) => <Recipe id={id}/>;
 export const UserComponent: React.FunctionComponent = () => <User />;
 export const CreateRecipeComponent: React.FunctionComponent = (props) => {
   const { id } = props;
