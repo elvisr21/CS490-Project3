@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+
 import validate from './FormValidation';
 import useForm from './useForm';
 import './Form.css';
@@ -9,15 +9,15 @@ const Register = ({ submitForm, setSigned }) => {
   const { handleChange, handleSubmit, handleSubmitLogin, account, login, errors } = useForm(
     submitForm,
     validate,
-    setSigned
+    setSigned,
   );
-  
+
   function clicked() {
     setLoginLink(true);
   }
-  //console.log(setLogin);
+  // console.log(setLogin);
 
-  //console.log ("Login Link: ", loginLink)
+  // console.log ("Login Link: ", loginLink)
   return (
     <>
       {!loginLink ? (
