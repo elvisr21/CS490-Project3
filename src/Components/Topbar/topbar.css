@@ -2,7 +2,8 @@
   color: white;
   border-top: 2px solid #ff8533;
   border-bottom: 2px solid #ff8533;
-  display: inline-block;
+  display: block;
+  position: relative;
   float: right;
   text-align: right;
   justify-content: space-between;
