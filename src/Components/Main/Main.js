@@ -18,21 +18,7 @@ export const Main = () => {
   }, []);
   const recipenav = '/recipe/';
   return (
-    <div>
-      <h1>Some Recipes:</h1>
-      {recipes != undefined && (
         <div>
-<<<<<<< HEAD
-          {recipes.map((recipe, index) => (
-            <div className="ic-DashboardCard">
-              <table width="100%" height="100%">
-                <tr key={index}>
-                  <td width="50%">
-                    <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>
-                  </td>
-                  <td width="50%">{recipe.creator_name}</td>
-                </tr>
-=======
           { (recipes!=undefined) &&
           <div style={{ 'background': 'linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%)' }}>
                 {recipes.map((recipe, index) => (
@@ -42,12 +28,11 @@ export const Main = () => {
                     <td width="50%"><Link to= {"/recipe/"+recipe["id"]} style={{ textDecoration: 'none', color: 'black' }}>{recipe.name}</Link></td>
                     <td width="50%">{recipe.creator_name}</td>
                   </tr>
->>>>>>> 3ffac0657f89e25e30fc0e34cb3f3ab171d29488
               </table>
             </div>
-          ))}
+                ))}
+          </div>
+          }
         </div>
-      )}
-    </div>
-  );
+    )
 };
