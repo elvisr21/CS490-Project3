@@ -68,6 +68,14 @@ class Database:
                         self.recipe_id) + ' >'
 
         self.Comment_Table = Comments
+        
+        class Favorite(self.db.Model):
+            id = self.db.Column(self.db.Integer, primary_key=True)
+            creator_id=self.db.Column(self.db.Integer,self.db.ForeignKey('user.id'), nullable=False)
+            recipe_id=self.db.Column(self.db.Integer,self.db.ForeignKey('recipe.id'), nullable=False)
+            def __repr__(self):
+                return '<Favorite creator_id='+str(self.creator_id)+" recipe_id="+str(self.recipe_id)+" >"
+        self.Favorite_Table=Favorite
         self.db.create_all()
 
     #inserts user and returns a user id
