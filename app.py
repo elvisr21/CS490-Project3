@@ -90,29 +90,6 @@ def loginUser(username, password):
         
     }
 """
-
-# db.insertUser(username="test3",password="password",name="test1")
-# db.deleteUser(user_id=1)
-# db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
-# db.getUsers()
-
-# db.insertRecipe(name='test2',creator_id=3,description='test',ingredients='test')
-# db.deleteRecipe(recipe_id=1)
-# db.changeRecipe(recipe_id=2,newName="testt",newDescription='testt',newIngredients='testt')
-# db.getRecipes()
-
-# db.insertComment(creator_id=2,comment="comment",recipe_id=2)
-# db.deleteComment(comment_id=2)
-# db.changeComment(comment_id=3,newComment='commentt')
-# db.getComments()
-
-
-# db.insertComment(creator_id=2,comment="comment",recipe_id=2)
-# db.deleteComment(comment_id=2)
-# db.changeComment(comment_id=3,newComment='commentt')
-# db.getComments()
-
-
 @app.route("/AddRecipe", methods=["POST"])
 def addRecipe():
     """This lets a user add a recipe"""
@@ -126,17 +103,7 @@ def addRecipe():
                            instructions=json.dumps(data['Instructions']))
 
 
-"""
-    endpoint for getting recipies for id for recipe page
-    takes json
-    {
-        
-       params: {
-            id: id
-        }
-    }
-    id being recipe id
-"""
+
 
 
 @app.route("/GetUserName", methods=["GET"])
@@ -160,7 +127,18 @@ def getCuisineRecipes():
     cuisine=request.args.get('cuisine')
     #data = json.loads(request.data.decode())
     return getRecipesbyCuisine(data['cuisine'], data['recipe_limit'])
-    
+
+"""
+    endpoint for getting recipies for id for recipe page
+    takes json
+    {
+        
+       params: {
+            id: id
+        }
+    }
+    id being recipe id
+"""   
 @app.route('/getRecipebyId', methods=["GET"])
 def getRecipeByID():
     """This will get the recipe with its id in the table"""
@@ -183,7 +161,8 @@ def addcomment():
 @app.route('/deleteComment', methods=["POST"])
 def removeComment():
     data = json.loads(request.data.decode())
-    db.deleteComment(comment_id=data['id'])
+    print(data)
+    db.deleteComment(comment_id=data['comment'])
     return {"code":0}
 
 
