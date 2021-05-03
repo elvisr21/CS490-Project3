@@ -10,8 +10,8 @@ export const Topbar = ({ id }) => {
     <div style={{ 'background-color': '#b3937f' }}>
       {id != -1  ? (
         <p className="navig">
-          <Link to="/">Home</Link>
           <p>Welcome!</p>
+          <Link to="/">Home</Link>
           <Link to={"/profile/"+id}>View Profile</Link>
           <Link to="/createRecipe">New Recipe</Link>
         </p>
