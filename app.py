@@ -139,10 +139,18 @@ def addRecipe():
 """
 
 
+@app.route("/GetUserName", methods=["GET"])
+def getUserName():
+    """This gets username and ID"""
+    users = db.getUsers()
+    print (users)
+    return users
+    
 @app.route('/GetRecipes',methods=["GET"])
 def getRecipes():
     """This gets the recipies"""
     ret = db.getRecipes()
+    print("ret")
     print(ret)
     return ret
 

@@ -11,9 +11,9 @@ export const Main=()=>{
         axios.get("/GetRecipes").then(res=>{
               console.log(res)
               const data = res.data.returning
-              console.log(data)
+              console.log("Data",data)
               setRecipes(data)
-              console.log(recipes)
+              console.log("Recipes: ",recipes)
             
         })
         
@@ -21,23 +21,20 @@ export const Main=()=>{
     const recipenav = "/recipe/"
     return(
         <div>
+          <h1>Some Recipes:</h1>
           { (recipes!=undefined) &&
-            <table>
-              <thead>
-                <tr>
-                  <th>Recipe</th>
-                  <th>Maker</th>
-                </tr>
-              </thead>
-              <tbody>
+          <div>
                 {recipes.map((recipe, index) => (
+            <div className="ic-DashboardCard">
+              <table width="100%" height="100%">
                   <tr key={index}>
-                    <td><Link to= {"/recipe/"+recipe["id"]}>{recipe.name}</Link></td>
-                    <td>{recipe.creator_name}</td>
+                    <td width="50%"><Link to= {"/recipe/"+recipe["id"]}>{recipe.name}</Link></td>
+                    <td width="50%">{recipe.creator_name}</td>
                   </tr>
+              </table>
+            </div>
                 ))}
-              </tbody>
-            </table>
+          </div>
           }
         </div>
     )
