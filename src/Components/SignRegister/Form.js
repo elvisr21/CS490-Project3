@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Form.css';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Register from './Register';
 // import FormSuccess from './FormSuccess';
 import { Main } from '../Main/Main';
@@ -25,7 +25,7 @@ const Form = (props) => {
         {!isSubmitted ? (
           <Register setSigned={props.setSigned} submitForm={submitForm} />
         ) : (
-          <Link to="/" />
+          <Redirect to="/" />
         )}
       </div>
     </>

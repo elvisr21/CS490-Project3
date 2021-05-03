@@ -4,18 +4,15 @@ img {
     padding: 10px;
     
 }
-
 #content{
     background-color: lightgrey;
     width: 300px;
-    border: 4px solid DodgerBlue;
     padding: 5px;
     margin: 10px;
 }
 #heads{
     background-color: lightgrey;
     width: 300px;
-    border: 4px solid DodgerBlue;
     padding: 5px;
     margin: 10px;
     box-sizing: border-box;
@@ -27,4 +24,7 @@ img {
     padding: 5px;
     margin: -2px;
     box-sizing: border-box;
+}
+.Comments{
+    color: white;
 }

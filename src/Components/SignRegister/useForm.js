@@ -52,7 +52,8 @@ export function useForm(callback, validate, setSigned) {
       setSigned({ isUser: true, id: response.data.id }); // sets the unique user id, and login status for app.js
     });
   };
-
+  
+  
   useEffect(() => {
     console.log(Object.keys(errors).length);
     // console.log(errors);

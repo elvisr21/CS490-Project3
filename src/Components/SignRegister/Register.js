@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-
 import validate from './FormValidation';
+import { Redirect, Link } from 'react-router-dom';
 import useForm from './useForm';
 import './Form.css';
 
@@ -14,6 +14,9 @@ const Register = ({ submitForm, setSigned }) => {
 
   function clicked() {
     setLoginLink(true);
+  }
+  function redirect(){
+    return <Redirect to='/' />
   }
   // console.log(setLogin);
 

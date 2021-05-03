@@ -98,8 +98,8 @@ const Recipe: React.FunctionComponent = ({ userId }) => {
             </button>
             {Object.entries(recipe.comments).map((comment) => (
               <div className="Comment">
-                <Link to={`/profile/${comment[1].id}`} className="Comment_Creator">
-                  {comment[1].name}
+                <Link style={{ textDecoration: 'none', color: 'white' }}  to={`/profile/${comment[1].id}`} className="Comment_Creator">
+                  from {comment[1].name}
                 </Link>
                 <div className="Comment">{comment[1].comment}</div>
                 {comment[1].id === userId && (
