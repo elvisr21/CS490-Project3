@@ -67,32 +67,31 @@ const Recipe: React.FunctionComponent = (props) => {
     })
   }
   return (
-    <>
+    <body style={{ 'background': 'linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%)' }}>
       {recipe !== undefined && (
         <div className="recipe">
           <img src={recipe.img} alt="Recipe_Image" />
-          <div className="Recipe_Name">Name: {recipe.name}</div>
-          <div className="Creator">Creator: {recipe.creator_name}</div>
-          <div className="Creator_id">Creator_id: {recipe.creator_id}</div>
-          <div className="Cuisine">Cuisine: {recipe.cuisine}</div>
-
-          <div className="Description">Description: {recipe.description}</div>
-          <div className="ingredients_recipe">
+            <div id="content" className="Recipe_Name">Name: {recipe.name}</div>
+            <div id="content" className="Creator">Creator: {recipe.creator_name}</div>
+            <div id="content" className="Creator_id">Creator_id: {recipe.creator_id}</div>
+            <div id="content" className="Cuisine">Cuisine: {recipe.cuisine}</div>
+            <div id="content" className="Description">Description: {recipe.description}</div>
+          <div id="heads" className="ingredients_recipe">
               Ingredients: <br/>
               {
                 recipe.ingredients.map((ingredient,index)=>{
                   return( 
-                  <div className="ingredient_entry">
+                  <div id="bodys" className="ingredient_entry">
                       {ingredient['amount']} of {ingredient['name']}
                   </div>
                   )
                 })
               }
           </div>
-          <div className="instructions_recipe">
+          <div id="heads" className="instructions_recipe">
             Instructions: <br />
             {recipe.instructions.map((instruction, index) => (
-              <div className="instruction_recipe">
+              <div id="bodys" className="instruction_recipe">
                 {index + 1}. {instruction}
               </div>
             ))}
@@ -115,7 +114,7 @@ const Recipe: React.FunctionComponent = (props) => {
           </div>
         </div>
       )}
-    </>
+    </body>
   );
 };
 
