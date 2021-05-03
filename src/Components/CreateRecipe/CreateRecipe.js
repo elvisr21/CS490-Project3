@@ -10,18 +10,18 @@ window.onload=()=>{
 
 const CreateRecipeForm: React.FunctionComponent = (props) => {
   const FormItem = ({ type, message, value, control }) => (
-    <div className="FormItem">
-      {type !== 'submit' && (
-        <label htmlFor={control}>
-          {message}
-          <input type={type} placeholder={value} id={control} required/>
-        </label>
-      )}
-      
-      {type ==="submit" &&
-        <input type={type} placeholder={value} id={control} />
-      }
-    </div>
+      <div className="FormItem">
+        {type !== 'submit' && (
+          <label htmlFor={control}>
+            {message}
+            <input type={type} placeholder={value} id={control} required/>
+          </label>
+        )}
+        
+        {type ==="submit" &&
+          <input type={type} placeholder={value} id={control} />
+        }
+      </div>
   );
   FormItem.propTypes = {
     type: PropTypes.string.isRequired,
@@ -100,7 +100,7 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
     };
     return (
       <div className="Ingredients">
-        <h2>Ingredients: </h2> <br />
+        <h2>List the ingredients</h2>
         <label htmlFor="ingredient_name">
           Ingredients Name: <input type="text" id="ingredient_name" placeholder="test" /> <br />
         </label>
