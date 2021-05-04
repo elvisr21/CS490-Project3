@@ -60,62 +60,78 @@ const Recipe: React.FunctionComponent = ({ userId }) => {
     });
   };
   return (
-    <body style={{ 'background': 'linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%)' }}>
+    <body id="back">
       {recipe !== undefined && (
+        
         <div className="recipe">
-          <img src={recipe.img} alt="Recipe_Image" />
-            <div id="content" className="Recipe_Name">Name: {recipe.name}</div>
-            <div id="content" className="Creator">Creator: {recipe.creator_name}</div>
-            <div id="content" className="Creator_id">Creator_id: {recipe.creator_id}</div>
-            <div id="content" className="Cuisine">Cuisine: {recipe.cuisine}</div>
-            <div id="content" className="Description">Description: {recipe.description}</div>
-          <div id="heads" className="ingredients_recipe">
-              Ingredients: <br/>
-              {
-                recipe.ingredients.map((ingredient,index)=>{
-                  return( 
-                  <div id="bodys" className="ingredient_entry">
-                      {ingredient['amount']} of {ingredient['name']}
-                  </div>
-                  )
-                })
-              }
+        
+          <div className="wrapper">
+            <img src={recipe.img} alt="Recipe_Image" /><br />
+            <div id="content">
+              <a className="Recipe_Name">{recipe.name}</a><br />
+              <a className="Creator">Creator: {recipe.creator_name}</a><br />
+              <a className="Cuisine">Cuisine: {recipe.cuisine}</a><br />
+              <a className="Description">Description: {recipe.description}</a><br />
+            </div>
           </div>
-          <div id="heads" className="instructions_recipe">
-            Instructions: <br />
-            {recipe.instructions.map((instruction, index) => (
-              <div id="bodys" className="instruction_recipe">
-                {index + 1}. {instruction}
-              </div>
-            ))}
+          
+          <div className="wrapper-2">
+          
+            <div id="heads" className="ingredients_recipe">
+                Ingredients: <br/>
+                {
+                  recipe.ingredients.map((ingredient,index)=>{
+                    return( 
+                    <div id="bodys" className="ingredient_entry">
+                        {ingredient['amount']} of {ingredient['name']}
+                    </div>
+                    )
+                  })
+                }
+            </div>
+            
+            <div id="heads" className="instructions_recipe">
+              Instructions: <br />
+              {recipe.instructions.map((instruction, index) => (
+                <div id="bodys" className="instruction_recipe">
+                  {index + 1}. {instruction}
+                </div>
+              ))}
+            </div>
+            
           </div>
+          
           <br />
-          <div className="Comments" id="Comment_section">
-            Comments: <br />
-            <input type="text" id="comment" require />
-            <button type="button" onClick={addComment}>
-              Add Comment{' '}
-            </button>
-            {Object.entries(recipe.comments).map((comment) => (
-              <div className="Comment">
-                <Link style={{ textDecoration: 'none', color: 'white' }}  to={`/profile/${comment[1].id}`} className="Comment_Creator">
-                  from {comment[1].name}
-                </Link>
-                <div className="Comment">{comment[1].comment}</div>
-                {comment[1].id === userId && (
-                  <div
-                    onClick={() => deleteComment(comment[1].comment_id)}
-                    role="button"
-                    onKeyDown={() => deleteComment(comment[1].comment_id)}
-                    tabIndex={0}
-                  >
-                    x
-                  </div>
-                )}
-                <br />
-              </div>
-            ))}
+          
+          <div className="wrapper-3">
+            <div className="Comments" id="Comment_section">
+              Comments: <br />
+              <input type="text" id="comment" require />
+              <button className="form-input-btn" type="button" onClick={addComment}>
+                Add Comment{' '}
+              </button>
+              {Object.entries(recipe.comments).map((comment) => (
+                <div className="Comment">
+                  <Link style={{ textDecoration: 'none', color: 'black' }}  to={`/profile/${comment[1].id}`} className="Comment_Creator">
+                    From {comment[1].name}
+                  </Link>
+                  <div className="Comment">{comment[1].comment}</div>
+                  {comment[1].id === userId && (
+                    <div
+                      onClick={() => deleteComment(comment[1].comment_id)}
+                      role="button"
+                      onKeyDown={() => deleteComment(comment[1].comment_id)}
+                      tabIndex={0}
+                    >
+                      x
+                    </div>
+                  )}
+                  <br />
+                </div>
+              ))}
+            </div>
           </div>
+          
         </div>
       )}
     </body>

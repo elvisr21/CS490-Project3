@@ -18,6 +18,7 @@ export const Main = () => {
   }, []);
   const recipenav = '/recipe/';
   return (
+      <body id="back">
         <div>
           { (recipes!=undefined) &&
           <div style={{ 'background': 'linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%)' }}>
@@ -34,5 +35,6 @@ export const Main = () => {
           </div>
           }
         </div>
+      </body>
     )
 };
