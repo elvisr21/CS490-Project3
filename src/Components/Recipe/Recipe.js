@@ -11,6 +11,7 @@ const Recipe: React.FunctionComponent = ({ userId }) => {
   const [recipe, setRecipe] = useState(undefined);
   const id = useParams().RecipeID;
   // const RecipeId= props.params.RecipeID;
+  
   const getRecipe = () => {
     axios
       .get('/getRecipebyId', {
@@ -33,9 +34,11 @@ const Recipe: React.FunctionComponent = ({ userId }) => {
         });
       });
   };
+  
   useEffect(() => {
     getRecipe();
   }, []);
+  
   const addComment = (e) => {
     e.preventDefault();
     const comment = document.getElementById('comment');
@@ -54,11 +57,40 @@ const Recipe: React.FunctionComponent = ({ userId }) => {
       });
     }
   };
+  
   const deleteComment = (comment) => {
     axios.post('/deleteComment', { comment }).then(() => {
       getRecipe();
     });
   };
+  
+  const addFavorite = (e) => {
+    e.preventDefault();
+    //const comment = document.getElementById('comment');
+    console.log(userId)
+    if (userId !== -1) {
+      const data = {
+        id: userId,
+        recipe_id: id
+      };
+      axios.post('/addFavorite', data).then(() => {
+        getRecipe();
+      });
+    }
+  };
+  
+  const deleteFavorite = (e) => {
+    //e.preventDefault();
+    if (userId !== -1) {
+      const data = {
+        recipe_id: id
+      };
+      axios.post('/deleteFavorite', data).then(() => {
+        getRecipe();
+      });
+    }
+  };
+  
   return (
     <body id="back">
       {recipe !== undefined && (
@@ -72,6 +104,8 @@ const Recipe: React.FunctionComponent = ({ userId }) => {
               <a className="Creator">Creator: {recipe.creator_name}</a><br />
               <a className="Cuisine">Cuisine: {recipe.cuisine}</a><br />
               <a className="Description">Description: {recipe.description}</a><br />
+              <button className="favorite-btn" type="button" onClick={addFavorite}>Favorite</button>
+              <button className="favorite-btn" type="button" onClick={deleteFavorite}>Unfavorite</button>
             </div>
           </div>
           

@@ -180,6 +180,7 @@ def removeComment():
 def addFavorite():
     """ Inserts favorited recipe into the database"""
     data = json.loads(request.data.decode())
+    print(data)
     db.insertFavorite(creator_id=data['id'],
                      recipe_id=data["recipe_id"])
     return {"code": 0}
@@ -190,7 +191,7 @@ def removeFavorite():
     """ Deletes favorited recipe from the database """
     data = json.loads(request.data.decode())
     print(data)
-    db.deleteFavorite(creator_id=data['id'])
+    db.deleteFavorite(favorite_id=data['recipe_id'])
     return {"code": 0}
 
 #id 1

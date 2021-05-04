@@ -183,9 +183,9 @@ class Database:
         self.db.session.commit()
         
     #delete favorite by id
-    def deleteFavorite(self, creator_id):
+    def deleteFavorite(self, favorite_id):
         """This is to delete a comment"""
-        self.Favorite_Table.query.filter_by(id=creator_id).delete()
+        self.Favorite_Table.query.filter_by(id=favorite_id).delete()
         self.db.session.commit()
     
     #changes user info

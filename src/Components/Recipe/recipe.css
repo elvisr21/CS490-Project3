@@ -76,3 +76,19 @@ img {
   color: #fff;
   font-size: 1rem;
 }
+.favorite-btn{
+    width: 20%;
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, rgb(39, 176, 255) 0%, rgb(0, 232, 236) 100%);
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+}
+.favorite-btn:hover {
+  cursor: pointer;
+  background: linear-gradient(90deg, rgb(39, 143, 255) 0%, rgb(12, 99, 250) 100%);
+  transition: all 0.4s ease-out;
+}
