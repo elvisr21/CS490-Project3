@@ -98,6 +98,8 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
     };
     return (
       <div className="Ingredients">
+      <br></br>
+      <br></br>
         <h2>List the ingredients</h2>
         <label htmlFor="ingredient_name">
           Ingredients Name: <input type="text" id="ingredient_name" placeholder="test" /> <br />
@@ -141,7 +143,7 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
         <label htmlFor="Instructions">
           Instructions: <input type="text" id="instruction" placeholder="test" /> <br />
         </label>
-        <br />
+        
         <button type="button" onClick={addInstructions}>
           Add Instruction
         </button>
@@ -161,7 +163,11 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
       <FormItem type="input" message="Description: " value="description" control="description" />
       <OptionItem message="Cuisine: " />
       <Ingredients />
+      <br></br>      
+      <br></br>
       <Instructions />
+      <br></br>
+      <br></br>
       <FormItem type="submit" value="Submit Recipe" control="submit" />
     </form>
   );
@@ -207,9 +213,11 @@ const CreateRecipe: React.FunctionComponent = ({ id }) => {
     }
   };
   return (
-    <div className="CreateRecipe">
+    <body id="back">
+    <div id="newRecipeBox" className="CreateRecipe">
       <CreateRecipeForm func={sendRecipe} />
     </div>
+    </body>
   );
 };
 CreateRecipe.propTypes = {
