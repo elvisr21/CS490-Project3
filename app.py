@@ -175,6 +175,23 @@ def removeComment():
     db.deleteComment(comment_id=data['comment'])
     return {"code": 0}
 
+# New added feature
+@app.route('/addFavorite', methods=["POST"])
+def addFavorite():
+    """ Inserts favorited recipe into the database"""
+    data = json.loads(request.data.decode())
+    db.insertFavorite(creator_id=data['id'],
+                     recipe_id=data["recipe_id"])
+    return {"code": 0}
+
+
+@app.route('/deleteFavorite', methods=["POST"])
+def removeFavorite():
+    """ Deletes favorited recipe from the database """
+    data = json.loads(request.data.decode())
+    print(data)
+    db.deleteFavorite(creator_id=data['id'])
+    return {"code": 0}
 
 #id 1
 #print(registerUser("taco","taco","taco"))

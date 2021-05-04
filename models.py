@@ -181,7 +181,13 @@ class Database:
         """This is to delete a comment"""
         self.Comment_Table.query.filter_by(id=comment_id).delete()
         self.db.session.commit()
-
+        
+    #delete favorite by id
+    def deleteFavorite(self, creator_id):
+        """This is to delete a comment"""
+        self.Favorite_Table.query.filter_by(id=creator_id).delete()
+        self.db.session.commit()
+    
     #changes user info
     def changeUser(self, user_id, newUsername, newName):
         """This is to change the user name"""
@@ -258,6 +264,15 @@ class Database:
         self.db.session.add(entry)
         self.db.session.commit()
         print('Comment ', entry, " was added to database")
+        
+    def insertFavorite(self, creator_id, recipe_id):
+        """This lets the user add a favorite recipe"""
+        ##
+        entry = self.Favorite_Table(creator_id=creator_id,
+                                   recipe_id=recipe_id)
+        self.db.session.add(entry)
+        self.db.session.commit()
+        print('Favorite recipe ', entry, " was added to database")
 
     def changeRecipe(self, recipe_id, newName, newDescription, newIngredients):
         """This lets user edit its recipe"""
