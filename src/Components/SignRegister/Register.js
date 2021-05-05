@@ -16,7 +16,7 @@ const Register = ({ submitForm, setSigned }) => {
     setLoginLink(true);
   }
   function redirect(){
-    return <Redirect to='/' />
+    return <Redirect to='/Home' />
   }
   // console.log(setLogin);
 

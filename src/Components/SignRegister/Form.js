@@ -15,7 +15,7 @@ const Form = (props) => {
   return (
     <>
       <div className="form-container">
-        <Link className="close-btn" to="/">
+        <Link className="close-btn" to="/Home">
           x
         </Link>
 
@@ -25,7 +25,7 @@ const Form = (props) => {
         {!isSubmitted ? (
           <Register setSigned={props.setSigned} submitForm={submitForm} />
         ) : (
-          <Redirect to="/" />
+          <Redirect to="/Home" />
         )}
       </div>
     </>
