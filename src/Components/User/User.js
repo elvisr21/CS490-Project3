@@ -5,23 +5,23 @@ import axios from 'axios';
 
 export const User = () => {
   const [users, setUsers] = useState(undefined);
+  const [favs, setFavs] = useState(undefined);
 
   useEffect(() => {
     axios.get('/GetRecipes').then((res) => {
-      //console.log(res);
-      const data = res.data.returning;
-      //console.log('Data: ', data);
-      setUsers(data);
-      //console.log('Users: ', users);
-    });
-    
-    axios.get('/GetFavoriteRecipeId').then((res) => {
       console.log(res);
       const data = res.data.returning;
       console.log('Data: ', data);
-      //setUsers(data);
-      //console.log('Recipe IDs: ', users);
+      setUsers(data);
+      console.log('Users: ', users);
     });
+    axios.get('/GetFavorite').then((res) => {
+      console.log(res);
+      const fav = res.fav.returning;
+      console.log('Data: ', fav);
+      setFavs(fav);
+      console.log('Users: ', users);
+    })
   }, []);
 
   const id = useParams().UserID;
@@ -47,6 +47,21 @@ export const User = () => {
                     </tr>
                   ))}
                 </tbody>
+                <thead>
+                  <tr>
+                    <th>Your Favorites</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {favs.map((user, index) => (
+                    <tr class="active-row" key={index}>
+                    {favs.creator_id == id ?
+                      <td><Link style={{ textDecoration: 'none', color: 'black' }} to= {"/recipe/"+user["favorite_id"]}>{favs.recipe_name}</Link></td>
+                    :null
+                    }
+                    </tr>
+                  ))}
+                </tbody>  
               </table>
             </div>
           }
