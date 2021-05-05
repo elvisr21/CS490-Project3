@@ -3,6 +3,7 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 export const User = () => {
   const [users, setUsers] = useState(undefined);
   const [favs, setFavs] = useState(undefined);
@@ -15,17 +16,27 @@ export const User = () => {
       setUsers(data);
       console.log('Users: ', users);
     });
-    axios.get('/GetFavorite').then((res) => {
-      console.log(res);
-      const fav = res.fav.returning;
-      console.log('Data: ', fav);
-      setFavs(fav);
-      console.log('Users: ', users);
-    })
+    getRecipe()
   }, []);
-
+  
   const id = useParams().UserID;
+  
+  const getRecipe = () => {
+    axios
+      .get('/GetFavorite', {
+        params: {
+          user_id:id,
+        },
+      })
+      .then((res) => {
+        console.log("favorite:",res)
+        const data = res.data;
+        setFavs(data)
+      });
+  };
+
   console.log('id: ', id);
+
 
   return (
     <body id="back">
@@ -47,21 +58,6 @@ export const User = () => {
                     </tr>
                   ))}
                 </tbody>
-                <thead>
-                  <tr>
-                    <th>Your Favorites</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {favs.map((user, index) => (
-                    <tr class="active-row" key={index}>
-                    {favs.creator_id == id ?
-                      <td><Link style={{ textDecoration: 'none', color: 'black' }} to= {"/recipe/"+user["favorite_id"]}>{favs.recipe_name}</Link></td>
-                    :null
-                    }
-                    </tr>
-                  ))}
-                </tbody>  
               </table>
             </div>
           }
