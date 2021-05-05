@@ -117,18 +117,8 @@ def getUserName():
 def getRecipes():
     """This gets the recipies"""
     ret = db.getRecipes()
-    print("ret")
-    print(ret)
     return ret
     
-
-@app.route('/GetFavoriteRecipeId', methods=["GET"])
-def getFavoriteRecipeId():
-    """This gets the recipie ids from the favorite table"""
-    ret = db.getFavoriteRecipeId()
-    print("ret")
-    print(ret)
-    return ret
 
 
 @app.route('/GetRecipesbyCuisine', methods=["GET"])
@@ -189,12 +179,9 @@ def removeComment():
 def addFavorite():
     """ Inserts favorited recipe into the database"""
     data = json.loads(request.data.decode())
-    print(data)
     db.insertFavorite(creator_id=data['id'],
                      recipe_id=data["recipe_id"])
     return {"code": 0}
-
-
 @app.route('/deleteFavorite', methods=["POST"])
 def removeFavorite():
     """ Deletes favorited recipe from the database """
@@ -203,26 +190,16 @@ def removeFavorite():
     db.deleteFavorite(favorite_id=data['recipe_id'])
     return {"code": 0}
 
-#id 1
-#print(registerUser("taco","taco","taco"))
-#print(loginUser("taco4","taco"))
-#print(getRecipesbyCuisine("chinese",0))
-#db.getRecipes()
-#db.insertUser(username="test3",password="password",name="test1")
-#db.deleteUser(user_id=1)
-#db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
-#db.getUsers()
 
-#db.insertRecipe(name='test2',creator_id=1,description='test',ingredients='test',cuisine="chinese", img='test', instructions="test#")
-#db.deleteRecipe(recipe_id=1)
-#db.changeRecipe(recipe_id=2,newName="testt",newDescription='testt',newIngredients='testt')
-#db.getRecipes()
+@app.route('/GetFavorite', methods=["GET"])
+def getFavoriteRecipeId():
+    """This gets the recipie ids from the favorite table"""
+    User_ID = request.args.get('user_id')
+    ret = db.getFavorite(User_ID)
+    return ret
 
 
-#db.insertComment(creator_id=1,comment="comment",recipe_id=6)
-#db.deleteComment(comment_id=2)
-#db.changeComment(comment_id=3,newComment='commentt')
-#db.getComments()
+
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')
 def index(filename):
