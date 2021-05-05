@@ -34,11 +34,11 @@ export function useForm(callback, validate, setSigned) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //let returnvalue = 0;
+    // let returnvalue = 0;
     console.log(account);
     setErrors(validate(account));
     setIsSubmitting(true);
-    //console.log(isSubmitting);
+    // console.log(isSubmitting);
   };
 
   const handleSubmitLogin = (e) => {
@@ -46,16 +46,17 @@ export function useForm(callback, validate, setSigned) {
 
     setErrors(validate(login));
     setIsSubmitting(true);
-    //console.log(Object.keys(errors).length);
+    // console.log(Object.keys(errors).length);
     axios.post('/login', login).then((response) => {
       console.log(response);
-      setSigned({isUser: true, id: response['data']['id']}); // sets the unique user id, and login status for app.js
+      setSigned({ isUser: true, id: response.data.id }); // sets the unique user id, and login status for app.js
     });
   };
   
+  
   useEffect(() => {
     console.log(Object.keys(errors).length);
-    //console.log(errors);
+    // console.log(errors);
     if (Object.keys(errors).length === 0 && isSubmitting) {
       callback();
     }

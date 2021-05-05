@@ -8,7 +8,7 @@ import {
   FavoriteComponent,
   RecipeComponent,
   UserComponent,
-  CreateRecipeComponent,
+  CreateRecipeComponent, LandingPageComponent
 } from './Components';
 
 function App(): React.FunctionComponent {
@@ -16,25 +16,25 @@ function App(): React.FunctionComponent {
     isUser: false,
     id: -1,
   }); // used to store the logged in user's unique id and to check if user logged in successfully
-  console.log(User.id);
   return (
     <Router>
       <TopbarComponent id={User.id} />
       <Switch>
-        <Route path="/" exact component={MainComponent} />
+        <Route path="/" exact component={LandingPageComponent} />
         <Route
           path="/signRegister"
           exact
           component={() => <SignRegisterComponent setSigned={setSigned} />}
         />
         <Route path="/favorite" exact component={FavoriteComponent} />
-        <Route path="/recipe/:RecipeID" exact component={RecipeComponent} />
+        <Route path="/recipe/:RecipeID" exact component={() => <RecipeComponent id={User.id} />} />
         <Route path="/profile/:UserID" exact component={UserComponent} />
         <Route
           path="/createRecipe"
           exact
           component={() => <CreateRecipeComponent id={User.id} />}
         />
+        <Route path="/Home" exact component={MainComponent}/>
       </Switch>
     </Router>
   );

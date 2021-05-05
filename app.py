@@ -91,27 +91,6 @@ def loginUser(username, password):
     }
 """
 
-# db.insertUser(username="test3",password="password",name="test1")
-# db.deleteUser(user_id=1)
-# db.changeUser(user_id=2,newUsername="newUsername",newName="newName")
-# db.getUsers()
-
-# db.insertRecipe(name='test2',creator_id=3,description='test',ingredients='test')
-# db.deleteRecipe(recipe_id=1)
-# db.changeRecipe(recipe_id=2,newName="testt",newDescription='testt',newIngredients='testt')
-# db.getRecipes()
-
-# db.insertComment(creator_id=2,comment="comment",recipe_id=2)
-# db.deleteComment(comment_id=2)
-# db.changeComment(comment_id=3,newComment='commentt')
-# db.getComments()
-
-
-# db.insertComment(creator_id=2,comment="comment",recipe_id=2)
-# db.deleteComment(comment_id=2)
-# db.changeComment(comment_id=3,newComment='commentt')
-# db.getComments()
-
 
 @app.route("/AddRecipe", methods=["POST"])
 def addRecipe():
@@ -124,6 +103,40 @@ def addRecipe():
                            cuisine=data['cuisine'],
                            img=data['image'],
                            instructions=json.dumps(data['Instructions']))
+
+
+@app.route("/GetUserName", methods=["GET"])
+def getUserName():
+    """This gets username and ID"""
+    users = db.getUsers()
+    print(users)
+    return users
+
+
+@app.route('/GetRecipes', methods=["GET"])
+def getRecipes():
+    """This gets the recipies"""
+    ret = db.getRecipes()
+    print("ret")
+    print(ret)
+    return ret
+    
+
+@app.route('/GetFavoriteRecipeId', methods=["GET"])
+def getFavoriteRecipeId():
+    """This gets the recipie ids from the favorite table"""
+    ret = db.getFavoriteRecipeId()
+    print("ret")
+    print(ret)
+    return ret
+
+
+@app.route('/GetRecipesbyCuisine', methods=["GET"])
+def getCuisineRecipes():
+    """gets recipes by cuisine"""
+    cuisine = request.args.get('cuisine')
+    #data = json.loads(request.data.decode())
+    return getRecipesbyCuisine(data['cuisine'], data['recipe_limit'])
 
 
 """
@@ -139,33 +152,12 @@ def addRecipe():
 """
 
 
-@app.route("/GetUserName", methods=["GET"])
-def getUserName():
-    """This gets username and ID"""
-    users = db.getUsers()
-    print (users)
-    return users
-    
-@app.route('/GetRecipes',methods=["GET"])
-def getRecipes():
-    """This gets the recipies"""
-    ret = db.getRecipes()
-    print("ret")
-    print(ret)
-    return ret
-
-@app.route('/GetRecipesbyCuisine',methods=["GET"])
-def getCuisineRecipes():
-    """gets recipes by cuisine"""
-    cuisine=request.args.get('cuisine')
-    #data = json.loads(request.data.decode())
-    return getRecipesbyCuisine(data['cuisine'], data['recipe_limit'])
-    
 @app.route('/getRecipebyId', methods=["GET"])
 def getRecipeByID():
     """This will get the recipe with its id in the table"""
     Recipe_ID = request.args.get('id')
     return db.getRecipesById(Recipe_ID)
+
 
 def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
     """This gets the recipies based on the cuisine they picked"""
@@ -173,6 +165,43 @@ def getRecipesbyCuisine(cuisine: str, recipe_limit: int):
     print(returnval)
     return returnval
 
+
+@app.route('/addComment', methods=["POST"])
+def addcomment():
+    """ Insert new comments into the database"""
+    data = json.loads(request.data.decode())
+    db.insertComment(creator_id=data['id'],
+                     comment=data['comment'],
+                     recipe_id=data["recipe_id"])
+    return {"code": 0}
+
+
+@app.route('/deleteComment', methods=["POST"])
+def removeComment():
+    """ Deletes comments from the database """
+    data = json.loads(request.data.decode())
+    print(data)
+    db.deleteComment(comment_id=data['comment'])
+    return {"code": 0}
+
+# New added feature
+@app.route('/addFavorite', methods=["POST"])
+def addFavorite():
+    """ Inserts favorited recipe into the database"""
+    data = json.loads(request.data.decode())
+    print(data)
+    db.insertFavorite(creator_id=data['id'],
+                     recipe_id=data["recipe_id"])
+    return {"code": 0}
+
+
+@app.route('/deleteFavorite', methods=["POST"])
+def removeFavorite():
+    """ Deletes favorited recipe from the database """
+    data = json.loads(request.data.decode())
+    print(data)
+    db.deleteFavorite(favorite_id=data['recipe_id'])
+    return {"code": 0}
 
 #id 1
 #print(registerUser("taco","taco","taco"))
