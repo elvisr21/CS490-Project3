@@ -120,6 +120,15 @@ def getRecipes():
     print("ret")
     print(ret)
     return ret
+    
+
+@app.route('/GetFavoriteRecipeId', methods=["GET"])
+def getFavoriteRecipeId():
+    """This gets the recipie ids from the favorite table"""
+    ret = db.getFavoriteRecipeId()
+    print("ret")
+    print(ret)
+    return ret
 
 
 @app.route('/GetRecipesbyCuisine', methods=["GET"])

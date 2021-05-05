@@ -8,11 +8,19 @@ export const User = () => {
 
   useEffect(() => {
     axios.get('/GetRecipes').then((res) => {
+      //console.log(res);
+      const data = res.data.returning;
+      //console.log('Data: ', data);
+      setUsers(data);
+      //console.log('Users: ', users);
+    });
+    
+    axios.get('/GetFavoriteRecipeId').then((res) => {
       console.log(res);
       const data = res.data.returning;
       console.log('Data: ', data);
-      setUsers(data);
-      console.log('Users: ', users);
+      //setUsers(data);
+      //console.log('Recipe IDs: ', users);
     });
   }, []);
 
