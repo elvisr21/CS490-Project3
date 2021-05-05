@@ -284,15 +284,18 @@ class Database:
         self.Favorite_Table.query.filter_by(id=favorite_id).delete()
         self.db.session.commit()
     def getFavorite(self,user_id):
-        que=self.Favorite_Table.query.filter_by(creator_id=user_id).join(self.Recipe_Table,self.Favorite_Table.recipe_id==self.Recipe_Table.id).add_columns(self.Recipe_Table.id,self.Recipe_Table.name).join(self.User_Table,self.User_Table.id==self.Recipe_Table.creator_id).add_columns(self.User_Table.name).all()
+        que=self.Favorite_Table.query.filter_by(creator_id=user_id).join(self.Recipe_Table,self.Favorite_Table.recipe_id==self.Recipe_Table.id).add_columns(self.Recipe_Table.id,self.Recipe_Table.name).join(self.User_Table,self.User_Table.id==self.Recipe_Table.creator_id).add_columns(self.User_Table.name,self.User_Table.id).all()
+        
         returnval={
             i: {
                 "favorite_id":
                 que[i][0].id,
-                "recipe_name":
+                "recipe_id":
                 que[i][1],
-                "creator_name":
-                que[i][2]
+                "recipe_name":
+                que[i][2],
+                "user_name":que[i][3],
+                "user_id":que[i][4]
             }
             for i in range(len(que))
         }
