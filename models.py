@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc, exc, asc
 from flask import json
 
+
 class Database:
     """This is the database class"""
     def __init__(self, app):
@@ -68,6 +69,23 @@ class Database:
                         self.recipe_id) + ' >'
 
         self.Comment_Table = Comments
+
+        class Favorite(self.db.Model):
+            """ Favorite recipe table"""
+            id = self.db.Column(self.db.Integer, primary_key=True)
+            creator_id = self.db.Column(self.db.Integer,
+                                        self.db.ForeignKey('user.id'),
+                                        nullable=False)
+            recipe_id = self.db.Column(self.db.Integer,
+                                       self.db.ForeignKey('recipe.id'),
+                                       nullable=False)
+
+            def __repr__(self):
+                return '<Favorite creator_id=' + str(
+                    self.creator_id) + " id=" +str(self.id)+" recipe_id=" + str(
+                        self.recipe_id) + " >"
+
+        self.Favorite_Table = Favorite
         self.db.create_all()
 
     #inserts user and returns a user id
@@ -97,8 +115,7 @@ class Database:
         return ({"code": 1, "id": exist.id})
 
     #inserts recipe to database
-    def insertRecipe(self, name: str, creator_id: int, description: str,
-                     ingredients: str, cuisine: str, img, instructions):
+    def insertRecipe(self, name: str, creator_id: int, description: str,ingredients: str, cuisine: str, img, instructions):
         """This will insert a new recipe"""
         entry = self.Recipe_Table(name=name,
                                   creator_id=creator_id,
@@ -111,7 +128,7 @@ class Database:
         self.db.session.commit()
         print('Recipe ', entry, " was added to database")
         return {"Code": 1}
-
+        
     #search recipes by id and returns recipe info with comments
     def getRecipesById(self, recipe_id: int):
         """This wil get the recipe by its id"""
@@ -139,12 +156,13 @@ class Database:
                 i: {
                     "name": comments[i][1],
                     "comment": comments[i][0].comment,
-                    "id": comments[i][2]
+                    "id": comments[i][2],
+                    "comment_id": comments[i][0].id
                 }
                 for i in range(len(comments))
             }
         }
-
+    
     #deletes user by id
     def deleteUser(self, user_id):
         """This is to delete a users"""
@@ -162,7 +180,10 @@ class Database:
         """This is to delete a comment"""
         self.Comment_Table.query.filter_by(id=comment_id).delete()
         self.db.session.commit()
+        
+    #delete favorite by id
 
+    
     #changes user info
     def changeUser(self, user_id, newUsername, newName):
         """This is to change the user name"""
@@ -174,14 +195,13 @@ class Database:
         self.db.session.commit()
 
     #changes comment info
-    def changeComment(self,comment_id,newComment):
+    def changeComment(self, comment_id, newComment):
         """This will change the comment"""
-        entry=self.Comment_Table.query.filter_by(id=comment_id).first()
-        if entry.comment!=newComment:
-            entry.comment=newComment 
-        self.db.session.commit()   
-        
-        
+        entry = self.Comment_Table.query.filter_by(id=comment_id).first()
+        if entry.comment != newComment:
+            entry.comment = newComment
+        self.db.session.commit()
+
     def getRecipes(self):
         """This will get recipes"""
         que=self.Recipe_Table.query.all()
@@ -214,10 +234,15 @@ class Database:
         if len(que):
             for i in range(len(que)):
                 ret.append({
-                    "id": que[i].id,
-                    "name": que[i].name,
-                    "creator_id":que[i].creator_id,
-                    "creator_name":self.User_Table.query.filter_by(id=que[i].creator_id).first().name,
+                    "id":
+                    que[i].id,
+                    "name":
+                    que[i].name,
+                    "creator_id":
+                    que[i].creator_id,
+                    "creator_name":
+                    self.User_Table.query.filter_by(
+                        id=que[i].creator_id).first().name,
                 })
         else:
             ret = [{
@@ -225,11 +250,10 @@ class Database:
                 "name": "No",
                 "creator_id": 0,
                 "creator_name": "recipes"
-                
             }]
         return {"returning": ret}
 
-    def getRecipesbyCuisine(self,cuisine:str,recipe_limit:int):
+    def getRecipesbyCuisine(self, cuisine: str, recipe_limit: int):
         """This wil get the recipe by its cuisine"""
         print()
         que = self.Recipe_Table.query.filter(
@@ -259,6 +283,15 @@ class Database:
         self.db.session.add(entry)
         self.db.session.commit()
         print('Comment ', entry, " was added to database")
+        
+    def insertFavorite(self, creator_id, recipe_id):
+        """This lets the user add a favorite recipe"""
+        ##
+        entry = self.Favorite_Table(creator_id=creator_id,
+                                   recipe_id=recipe_id) 
+        self.db.session.add(entry)
+        self.db.session.commit()
+        print('Favorite recipe ', entry, " was added to database")
 
     def changeRecipe(self, recipe_id, newName, newDescription, newIngredients):
         """This lets user edit its recipe"""
@@ -271,3 +304,22 @@ class Database:
             entry.ingredients = newIngredients
 
         self.db.session.commit()
+    def deleteFavorite(self, favorite_id):
+        """This is to delete a comment"""
+        self.Favorite_Table.query.filter_by(id=favorite_id).delete()
+        self.db.session.commit()
+    def getFavorite(self,user_id):
+        que=self.Favorite_Table.query.filter_by(creator_id=user_id).join(self.Recipe_Table,self.Favorite_Table.recipe_id==self.Recipe_Table.id).add_columns(self.Recipe_Table.id,self.Recipe_Table.name).join(self.User_Table,self.User_Table.id==self.Recipe_Table.creator_id).add_columns(self.User_Table.name).all()
+        returnval={
+            i: {
+                "favorite_id":
+                que[i][0].id,
+                "recipe_name":
+                que[i][1],
+                "creator_name":
+                que[i][2]
+            }
+            for i in range(len(que))
+        }
+        return returnval
+    

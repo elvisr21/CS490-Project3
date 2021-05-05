@@ -1,0 +1,95 @@
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    grid-gap: 1em;
+}
+
+.wrapper > div{
+    background: #eee;
+    margin: 1em 0 0 1em;
+    padding: 1em;
+    
+}
+.wrapper-2{
+    display: flex;
+    flex-direction: row;
+    padding: 1em 1em 1em 1em;
+}
+.wrapper-2 > div{
+    background: #eee;
+    padding: 1em;
+}
+.wrapper-3{
+    display: flex;
+    flex-direction: row;
+    padding: 1em 1em 1em 1em;
+}
+.wrapper-3 > div{
+    background: #eee;
+    padding: 1em;
+}
+img {
+    width: 319px;
+    height: 250px;
+    margin: 1em 0 0 1em;
+}
+#back{
+    width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%);
+}
+.Comments{
+    color: black;
+}
+.Recipe_Name{
+    font-size: 50px;
+    margin: auto;
+}
+.Creator{
+    font-size: 20px;
+}
+.Cuisine{
+    font-size: 20px;
+}
+.Description{
+    font-size: 20px;
+}
+.ingredients_recipe{
+    font-size: 20px;
+}
+.instructions_recipe{
+    font-size: 20px;
+}
+.Comment{
+    background: linear-gradient(90deg, rgb(39, 176, 255) 0%, rgb(0, 232, 236) 100%);
+    margin: 5px 5px 0 0;
+    border-radius: 2px;
+}
+.form-input-btn {
+  width: 50%;
+  height: 30px;
+  margin-top: 10px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgb(39, 176, 255) 0%, rgb(0, 232, 236) 100%);
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+}
+.favorite-btn{
+    width: 40%;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, rgb(39, 176, 255) 0%, rgb(0, 232, 236) 100%);
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+}
+.favorite-btn:hover {
+  cursor: pointer;
+  background: linear-gradient(90deg, rgb(39, 143, 255) 0%, rgb(12, 99, 250) 100%);
+  transition: all 0.4s ease-out;
+}

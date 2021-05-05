@@ -3,10 +3,10 @@ import './CreateRecipe.css';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-window.onload=()=>{
-  const instructionWarning=document.getElementById("instructionWarning");
-  const ingredientWarning=document.getElementById("instructionWarning");
-}
+window.onload = () => {
+  const instructionWarning = document.getElementById('instructionWarning');
+  const ingredientWarning = document.getElementById('instructionWarning');
+};
 
 const CreateRecipeForm: React.FunctionComponent = (props) => {
   const FormItem = ({ type, message, value, control }) => (
@@ -14,13 +14,11 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
       {type !== 'submit' && (
         <label htmlFor={control}>
           {message}
-          <input type={type} placeholder={value} id={control} required/>
+          <input type={type} placeholder={value} id={control} required />
         </label>
       )}
-      
-      {type ==="submit" &&
-        <input type={type} placeholder={value} id={control} />
-      }
+
+      {type === 'submit' && <input type={type} placeholder={value} id={control} />}
     </div>
   );
   FormItem.propTypes = {
@@ -66,8 +64,8 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
           return;
         }
       }
-      if (ingredientWarning.innerHTML!=""){
-        ingredientWarning.innerHTML=""
+      if (ingredientWarning.innerHTML != '') {
+        ingredientWarning.innerHTML = '';
       }
 
       const amount = document.getElementById('ingredient_amount');
@@ -100,7 +98,9 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
     };
     return (
       <div className="Ingredients">
-        <h2>Ingredients: </h2> <br />
+      <br></br>
+      <br></br>
+        <h2>List the ingredients</h2>
         <label htmlFor="ingredient_name">
           Ingredients Name: <input type="text" id="ingredient_name" placeholder="test" /> <br />
         </label>
@@ -110,7 +110,7 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
         <button type="button" onClick={addIngredient}>
           Add Ingredient
         </button>
-        <div id="ingredientWarning"></div>
+        <div id="ingredientWarning" />
         <div className="IngredientItems" id="IngredientItems" />
       </div>
     );
@@ -118,11 +118,10 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
   const Instructions: React.FunctionComponent = () => {
     const addInstructions = (e) => {
       e.preventDefault();
-      if (instructionWarning.innerHTML!=""){
-        instructionWarning.innerHTML=""
+      if (instructionWarning.innerHTML != '') {
+        instructionWarning.innerHTML = '';
       }
-      
-      
+
       const instruction = document.getElementById('instruction');
       const container = document.getElementById('InstructionItems');
       const div = document.createElement('div');
@@ -144,11 +143,11 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
         <label htmlFor="Instructions">
           Instructions: <input type="text" id="instruction" placeholder="test" /> <br />
         </label>
-        <br />
+        
         <button type="button" onClick={addInstructions}>
           Add Instruction
         </button>
-        <div id="instructionWarning"></div>
+        <div id="instructionWarning" />
         <div className="InstructionItems" id="InstructionItems" />
       </div>
     );
@@ -164,7 +163,11 @@ const CreateRecipeForm: React.FunctionComponent = (props) => {
       <FormItem type="input" message="Description: " value="description" control="description" />
       <OptionItem message="Cuisine: " />
       <Ingredients />
+      <br></br>      
+      <br></br>
       <Instructions />
+      <br></br>
+      <br></br>
       <FormItem type="submit" value="Submit Recipe" control="submit" />
     </form>
   );
@@ -189,7 +192,7 @@ const CreateRecipe: React.FunctionComponent = ({ id }) => {
       Ingredients: [],
       Instructions: [],
     };
-    console.log(data)
+    console.log(data);
     ingredients.forEach((ingredient, index) => {
       const name = ingredient.children[0].value;
       const amount = ingredient.children[1].value;
@@ -202,18 +205,19 @@ const CreateRecipe: React.FunctionComponent = ({ id }) => {
       const name = ingredient.children[0].value;
       data.Instructions[index] = name;
     });
-    if (ingredients.length>0 && instructions.length>0){
-        axios.post('/AddRecipe', data);
-    }
-    else{
-      instructionWarning.innerHTML="Atleast one Instruction needed";
-      ingredientWarning.innerHTML="Atleast one Ingredient needed"
+    if (ingredients.length > 0 && instructions.length > 0) {
+      axios.post('/AddRecipe', data);
+    } else {
+      instructionWarning.innerHTML = 'Atleast one Instruction needed';
+      ingredientWarning.innerHTML = 'Atleast one Ingredient needed';
     }
   };
   return (
-    <div className="CreateRecipe">
+    <body id="back">
+    <div id="newRecipeBox" className="CreateRecipe">
       <CreateRecipeForm func={sendRecipe} />
     </div>
+    </body>
   );
 };
 CreateRecipe.propTypes = {

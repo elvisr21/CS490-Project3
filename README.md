@@ -1,4 +1,4 @@
-https://cs490-project3.herokuapp.com
+https://cs490-p3-sprint2.herokuapp.com/
 
 ## Requirements
 
