@@ -5,13 +5,13 @@ import React, { useState } from 'react';
 
 export const Topbar = ({ id }) => {
   //const [logged, setLogged] = useState(false);
-  console.log(id);
+  //console.log(id);
   return (
-    <div style={{ 'backgroundColor': '#b3937f' }}>
+    <div style={{ 'background': 'linear-gradient(90deg, rgb(39, 176, 255) 0%, rgb(0, 232, 236) 100%)' }}>
       {id != -1  ? (
         <p className="navig">
-          <Link to="/">Home</Link>
           <p>Welcome!</p>
+          <Link to="/">Home</Link>
           <Link to={"/profile/"+id}>View Profile</Link>
           <Link to="/createRecipe">New Recipe</Link>
         </p>
