@@ -185,6 +185,29 @@ class Database:
     def getRecipes(self):
         """This will get recipes"""
         que=self.Recipe_Table.query.all()
+        ret = []
+        if len(que):
+            for i in range(len(que)):
+                ret.append({
+                    "id": que[i].id,
+                    "name": que[i].name,
+                    "creator_id":que[i].creator_id,
+                    "creator_name":self.User_Table.query.filter_by(id=que[i].creator_id).first().name,
+                })
+        else:
+            ret = [{
+                "id": 0,
+                "name": "No",
+                "creator_id": 0,
+                "creator_name": "recipes"
+                
+            }]
+        return {"returning": ret}
+    
+    def searchRecipes(self, search):
+        """This will search recipes"""
+        searchString = "%"+search+"%"
+        que=self.Recipe_Table.query.filter(self.Recipe_Table.name.like(searchString)).all()
         print("que: ")
         print(que)
         ret = []

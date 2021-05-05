@@ -7,7 +7,7 @@ export const Topbar = ({ id }) => {
   //const [logged, setLogged] = useState(false);
   console.log(id);
   return (
-    <div style={{ 'background-color': '#b3937f' }}>
+    <div style={{ 'backgroundColor': '#b3937f' }}>
       {id != -1  ? (
         <p className="navig">
           <Link to="/">Home</Link>
