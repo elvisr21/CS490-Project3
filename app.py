@@ -118,6 +118,16 @@ def getRecipes():
     """This gets the recipies"""
     ret = db.getRecipes()
     return ret
+
+@app.route('/SearchRecipes',methods=["GET"])
+def searchRecipes():
+    """This gets the recipies"""
+    print("Searching...")
+    search = request.args.get('search')
+    ret = db.searchRecipes(search)
+    print("ret")
+    print(ret)
+    return ret
     
 
 
