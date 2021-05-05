@@ -200,7 +200,7 @@ def removeFavorite():
     db.deleteFavorite(favorite_id=data['recipe_id'])
     return {"code": 0}
 
-
+db.getFavorite(1)
 @app.route('/GetFavorite', methods=["GET"])
 def getFavoriteRecipeId():
     """This gets the recipie ids from the favorite table"""
