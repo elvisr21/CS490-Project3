@@ -10,14 +10,10 @@ body {
 }
 .header h1 {
   font-size: 40px;
-<<<<<<< HEAD
   text-align: center;
 
 }
-.body{
-  text-align: center;
-=======
-}
+
 .body {
   padding: 80px;
   text-align: center;
@@ -35,5 +31,4 @@ body {
 }
 .body-1 h1 {
   font-size: 40px;
->>>>>>> a761613b377bd67fda9ab22273eabca7ab934e30
 }
