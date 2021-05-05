@@ -8,7 +8,7 @@ import {
   FavoriteComponent,
   RecipeComponent,
   UserComponent,
-  CreateRecipeComponent,
+  CreateRecipeComponent, LandingPageComponent
 } from './Components';
 
 function App(): React.FunctionComponent {
@@ -20,7 +20,7 @@ function App(): React.FunctionComponent {
     <Router>
       <TopbarComponent id={User.id} />
       <Switch>
-        <Route path="/" exact component={MainComponent} />
+        <Route path="/" exact component={LandingPageComponent} />
         <Route
           path="/signRegister"
           exact
@@ -34,6 +34,7 @@ function App(): React.FunctionComponent {
           exact
           component={() => <CreateRecipeComponent id={User.id} />}
         />
+        <Route path="/Home" exact component={MainComponent}/>
       </Switch>
     </Router>
   );

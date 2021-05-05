@@ -7,7 +7,7 @@ import { Favorite } from './Favorite/Favorite';
 import Recipe from './Recipe/Recipe';
 import { User } from './User/User';
 import CreateRecipe from './CreateRecipe/CreateRecipe';
-
+import {Landing} from './LandingPage/Landingpage';
 export const TopbarComponent: React.FunctionComponent = (props) => {
   const { id } = props;
   return <Topbar id={id} />;
@@ -35,3 +35,4 @@ export const CreateRecipeComponent: React.FunctionComponent = (props) => {
 CreateRecipeComponent.propTypes = {
   id: PropTypes.number.isRequired,
 };
+export const LandingPageComponent=()=> <Landing/>;

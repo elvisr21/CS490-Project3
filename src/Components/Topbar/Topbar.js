@@ -12,13 +12,13 @@ export const Topbar = ({ id }) => {
         <p className="navig">
                   <p>Welcome!</p>
 
-          <Link to="/">Home</Link>
+          <Link to="/Home">Home</Link>
           <Link to={"/profile/"+id}>View Profile</Link>
           <Link to="/createRecipe">New Recipe</Link>
         </p>
       ) : (
         <p className="navig">
-          <Link to="/">Home</Link>
+          <Link to="/Home">Home</Link>
           <Link to="/signRegister">Login</Link>
         </p>
       )}
