@@ -227,7 +227,7 @@ class Database:
     def searchRecipes(self, search):
         """This will search recipes"""
         searchString = "%"+search+"%"
-        que=self.Recipe_Table.query.filter(self.Recipe_Table.name.like(searchString)).all()
+        que=self.Recipe_Table.query.filter(self.Recipe_Table.name.ilike(searchString)).all()
         print("que: ")
         print(que)
         ret = []
@@ -247,9 +247,9 @@ class Database:
         else:
             ret = [{
                 "id": 0,
-                "name": "No",
+                "name": "",
                 "creator_id": 0,
-                "creator_name": "recipes"
+                "creator_name": "No recipes"
             }]
         return {"returning": ret}
 
